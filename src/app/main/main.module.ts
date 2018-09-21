@@ -4,26 +4,24 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { AppComponent } from './app.component';
-import { AuthGuard } from './guards/auth.guard';
+import { AdministrarModule } from '../Administrar/administrar.module';
 import { RouterModule } from '@angular/router';
-import {  AppRoutes } from './app.routing';
-import { MainComponent } from './main/main.component';
-import { LoginComponent } from './login/login.component';
-import { PoliticaComponent } from './Administrar/Politica/politica.component';
-import { MainModule } from './main/main.module';
+import { MainRoutes } from './main.routing';
+import { MainComponent } from './main.component';
+import { LoginComponent } from '../login/login.component';
+
 
 @NgModule({
-  declarations: [
-    AppComponent   
+  declarations: [ 
+      MainComponent,
+      LoginComponent  
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    MainModule,
-    RouterModule.forRoot(AppRoutes),       
+    AdministrarModule,  
+    RouterModule.forRoot(MainRoutes),        
     BrowserAnimationsModule,
     MatInputModule, 
     MatButtonModule,
@@ -31,7 +29,6 @@ import { MainModule } from './main/main.module';
     MatIconModule
     
   ],
-  providers: [AuthGuard],
-  bootstrap: [AppComponent]  
+  providers: []
 })
-export class AppModule { }
+export class MainModule { }
