@@ -1,29 +1,29 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PoliticaComponent } from './Politica/politica.component';
+import { NgModuleResolver } from "@angular/compiler";
 
+import { NgModule } from "@angular/core";
+
+import { BrowserModule } from "@angular/platform-browser";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { PoliticaComponent } from "./politica/politica.component";
+import { AdministrarRoutes } from "./administrar.routing";
+import { ComponenteComponent } from "./componente/componente.component";
+import { CategoriaComponent } from "./categoria/categoria.component";
+import { ActividadComponent } from "./actividad/actividad.component";
 
 @NgModule({
-  declarations: [
-
-    PoliticaComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-       
-    BrowserAnimationsModule,
-    MatInputModule, 
-    MatButtonModule,
-    MatSelectModule,
-    MatIconModule
-    
-  ],
-  providers: [PoliticaComponent]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(AdministrarRoutes)
+    ],
+    declarations: 
+    [ 
+        PoliticaComponent,
+        ComponenteComponent,
+        CategoriaComponent,
+        ActividadComponent 
+    ]
+   
 })
-export class AdministrarModule { }
+
+export class AdministrarModule {}

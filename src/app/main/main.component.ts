@@ -18,7 +18,19 @@ export class MainComponent implements OnInit {
 
 
     onClicPolitica() {
-        this.router.navigate(['/politica']);
+        this.router.navigate(['/administrar/politica']);
+    }
+
+    onClicComponente() {
+        this.router.navigate(['/administrar/componente']);
+    }
+
+    onClicCategoria() {
+        this.router.navigate(['/administrar/categoria']);
+    }
+
+    onClicActividad() {
+        this.router.navigate(['/administrar/actividad']);
     }
 
 }

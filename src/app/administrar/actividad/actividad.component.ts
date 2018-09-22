@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
 
 @Component({
-    selector: 'app-politica',
-    templateUrl: './politica.component.html'    
+    selector: 'app-categoria',
+    templateUrl: './actividad.component.html'    
   })
-  export class PoliticaComponent {
+  export class ActividadComponent {
 
     constructor() {
 
