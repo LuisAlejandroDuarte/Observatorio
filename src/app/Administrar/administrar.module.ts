@@ -10,10 +10,12 @@ import { AdministrarRoutes } from "./administrar.routing";
 import { ComponenteComponent } from "./componente/componente.component";
 import { CategoriaComponent } from "./categoria/categoria.component";
 import { ActividadComponent } from "./actividad/actividad.component";
+import { MatInputModule } from "@angular/material";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
     imports: [
-        CommonModule,
+        CommonModule,         
         RouterModule.forChild(AdministrarRoutes)
     ],
     declarations: 

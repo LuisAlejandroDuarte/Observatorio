@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatToolbarModule, MatSidenavModule, MatListModule, MatCardModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import {  AppRoutes } from './app.routing';
 import { AdminLayoutComponent } from './layout/layout.component';
 import { MainModule } from './main/main.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -17,14 +18,10 @@ import { MainModule } from './main/main.module';
     AdminLayoutComponent
   ],
   imports: [
-    FormsModule,
     HttpModule,    
-    RouterModule.forRoot(AppRoutes),       
+    BrowserModule,   
     BrowserAnimationsModule,
-    MatInputModule, 
-    MatButtonModule,
-    MatSelectModule,
-    MatIconModule,
+    RouterModule.forRoot(AppRoutes),     
     MainModule    
   ],
 
