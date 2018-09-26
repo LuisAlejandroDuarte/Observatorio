@@ -11,6 +11,7 @@ import {  AppRoutes } from './app.routing';
 import { AdminLayoutComponent } from './layout/layout.component';
 import { MainModule } from './main/main.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { BrowserModule } from '@angular/platform-browser';
     AdminLayoutComponent
   ],
   imports: [
-    HttpModule,    
+    HttpModule,  
+    HttpClientModule,  
     BrowserModule,   
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes),     
