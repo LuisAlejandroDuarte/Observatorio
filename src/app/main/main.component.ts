@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-
+declare const $: any;
 @Component({
     selector: 'app-main',
     templateUrl: 'main.component.html',
@@ -13,12 +13,17 @@ export class MainComponent implements OnInit {
 
     }
 
-    ngOnInit(): void {       
+    ngOnInit(): void {   
+       $('#iconoEspera').hide();     
     }
 
 
     onClicPolitica() {
         this.router.navigate(['/administrar/politica']);
+    }
+
+    onClicEntidad() {
+        this.router.navigate(['/administrar/entidad']);
     }
 
     onClicComponente() {
@@ -31,6 +36,10 @@ export class MainComponent implements OnInit {
 
     onClicActividad() {
         this.router.navigate(['/administrar/actividad']);
+    }
+
+    onClicPoliticaEntidad() {
+        this.router.navigate(['/relacionar/politicaEntidad']);
     }
 
 }

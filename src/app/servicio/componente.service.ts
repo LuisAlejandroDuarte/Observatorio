@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {Observable} from "rxjs";
-import { Politica } from "../modelo/politica.modelo";
+import { Componente } from "../modelo/componente";
+
 
 // header('Content-type: application/json');
 // header("Access-Control-Allow-Origin: *");
@@ -14,41 +15,41 @@ const httpOptions = {
     'Accept': 'application/json'})
   };
 @Injectable()
-export class PoliticaService {
+export class ComponenteService {
  constructor(public http: HttpClient) {}
     
 
- insert(politica: Politica): Observable<Politica> {
+ insert(componente: Componente): Observable<Componente> {
         
   //  let token = new tokens();
    
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-     return this.http.post<Politica>('http://localhost:8037/Observatorio/src/app/datos/politica.php?url=ingresar',JSON.stringify(politica),httpOptions);
+     return this.http.post<Componente>('http://localhost:8037/Observatorio/src/app/datos/componente.php?url=ingresar',JSON.stringify(componente),httpOptions);
    }
 
-   select(): Observable<Politica[]> {
+   select(): Observable<Componente[]> {
         
     //  let token = new tokens();
      
     
       //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-       return this.http.post<Politica[]>('http://localhost:8037/Observatorio/src/app/datos/politica.php?url=select',null,httpOptions);
+       return this.http.post<Componente[]>('http://localhost:8037/Observatorio/src/app/datos/componente.php?url=select',null,httpOptions);
      }
 
-  selectbyId(politica: Politica): Observable<Politica> {
+  selectbyId(componente: Componente): Observable<Componente> {
     
   //  let token = new tokens();
     
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-      return this.http.post<Politica>('http://localhost:8037/Observatorio/src/app/datos/politica.php?url=selectbyId',JSON.stringify(politica),httpOptions);
+      return this.http.post<Componente>('http://localhost:8037/Observatorio/src/app/datos/componente.php?url=selectbyId',JSON.stringify(componente),httpOptions);
     }
 
-  update(politica: Politica): Observable<Politica> {
+  update(componente: Componente): Observable<Componente> {
                 
       
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-    return this.http.post<Politica>('http://localhost:8037/Observatorio/src/app/datos/politica.php?url=update',JSON.stringify(politica),httpOptions);
+    return this.http.post<Componente>('http://localhost:8037/Observatorio/src/app/datos/componente.php?url=update',JSON.stringify(componente),httpOptions);
   }
 }

@@ -1,0 +1,18 @@
+<div class="card border-primary mb-3">
+
+        <div class="card-header ">
+          <h4 class="card-title">
+            <small class="description" style="font-size:14px;color:blue">{{title}}</small>
+          </h4>
+        </div>              
+        <div class="card-body">   
+            <div class="form-group">
+                <label>POLÍTICAS</label>
+            
+                <ng-select [(ngModel)]="selectedCarId">
+                        <ng-option *ngFor="let car of cars" [value]="car" >{{car.name}}</ng-option>
+                        <ng-option [value]="'custom'">Custom</ng-option>
+                    </ng-select>                      
+                </div>
+        </div>
+    </div>

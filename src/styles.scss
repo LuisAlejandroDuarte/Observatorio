@@ -15,11 +15,36 @@
 
  @include angular-material-theme($theme);
 
-// body {
-//   font-family: mat-font-family($config);
-//   font-weight: normal;
-// }
+body {
+  font-family: mat-font-family($config);
+  font-weight: normal;
+}
 
-// h1, h2, h3, h4 {
-//   font-weight: normal;
-// }
+h1, h2, h3, h4 {
+  font-weight: normal;
+}
+
+
+.imagewait
+{
+   position: fixed;   
+    z-index: 3040; 
+      height: 61px; 
+     width: 61px;       
+     left: 50%;   
+     top:40%;  
+     background-image: url("assets/img/load.gif"); 
+}
+
+.showait
+{
+    opacity: .2;
+    position: fixed;   
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;       
+    background-color: #333;
+
+}

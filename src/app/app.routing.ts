@@ -6,7 +6,7 @@ import { AdminLayoutComponent } from './layout/layout.component';
 
 
 export const AppRoutes: Routes = [
-
+    
      {
       path: '',
       component: AdminLayoutComponent,
@@ -14,7 +14,11 @@ export const AppRoutes: Routes = [
       {
           path: 'administrar',
           loadChildren: './administrar/administrar.module#AdministrarModule'
-      }
+      },
+      {
+        path: 'relacionar',
+        loadChildren: './relacionar/relacionar.module#RelacionarModule'
+       }
     ]}
   //   ,{
   //       path: 'Instrumentos',

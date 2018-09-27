@@ -14,6 +14,12 @@ import { MatInputModule } from "@angular/material";
 import { FormsModule } from "@angular/forms";
 import { CrudPoliticaComponent } from "../crud/crud.politica.component";
 import { PoliticaService } from "../servicio/politica.service";
+import { EntidadComponent } from "./entidad/entidad.component";
+import { EntidadService } from "../servicio/entidad.service";
+import { ComponenteService } from "../servicio/componente.service";
+import { CategoriaService } from "../servicio/categoria.service";
+import { ActividadService } from "../servicio/actividad.service";
+
 @NgModule({
     imports: [
         CommonModule,         
@@ -23,12 +29,14 @@ import { PoliticaService } from "../servicio/politica.service";
     declarations: 
     [ 
         PoliticaComponent,
+        EntidadComponent,
         ComponenteComponent,
         CategoriaComponent,
         ActividadComponent,
+        CategoriaComponent,
         CrudPoliticaComponent 
     ],
-   providers:[PoliticaService]
+   providers:[PoliticaService,EntidadService,ComponenteService,CategoriaService,ActividadService]
 })
 
 export class AdministrarModule {}

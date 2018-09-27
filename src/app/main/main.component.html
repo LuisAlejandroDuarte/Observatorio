@@ -15,20 +15,21 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" style="cursor: pointer;" (click)="onClicPolitica()" >Políticas</a>
+                        <a class="dropdown-item" style="cursor: pointer;" (click)="onClicEntidad()" >Entidades</a>
                         <a class="dropdown-item" style="cursor: pointer;" (click)="onClicComponente()">Componentes</a>
                         <a class="dropdown-item"  style="cursor: pointer;" (click)="onClicCategoria()">Categorias</a>
-                        <a class="dropdown-item" style="cursor: pointer;" (click)="onClicActividad()">Actividades</a>                   
+                        <a class="dropdown-item" style="cursor: pointer;" (click)="onClicActividad()">Actividades</a>                                           
                     </div>
                 </li>  
-              
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="https://www.jquery-az.com/bootstrap-4/">Bootstrap</a>
-                </li>
-                
-                <li class="nav-item">
-                        <a class="nav-link text-light" href="https://www.jquery-az.com/bootstrap-4/">Bootstrap</a>
-                    </li>
-    
+                            
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      RELACIONAR
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" style="cursor: pointer;" (click)="onClicPoliticaEntidad()" >Política-Entidad</a>
+                  </div>  
+                </li> 
                 
             </ul>
             <!-- <form class="form-inline my-2 my-lg-0">

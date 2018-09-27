@@ -1,26 +1,25 @@
 import { Component } from "@angular/core";
-import { ActividadService } from "../../servicio/actividad.service";
-import { Actividad } from "../../modelo/actividad.modelo";
+import { EntidadService } from "../../servicio/entidad.service";
+import { Entidad } from "../../modelo/entidad.modelo";
 declare const $: any;
 @Component({
-    selector: 'app-actividad',
-    templateUrl: './actividad.component.html'    
+    selector: 'app-entidad',
+    templateUrl: './entidad.component.html'
   })
-  export class ActividadComponent {
+  export class EntidadComponent {
 
-    constructor(private serviceActividad:ActividadService) {
-
+    constructor(private serviceEntidad:EntidadService) {
+      
     }
-
     title:string;
     showData:boolean;
     nombre:string;    
-    acg_codi:number;
+    ent_codi:number;
 
 
 
     onClicNueva() {
-        this.title="Crear Actividad";
+        this.title="Crear Entidad";
         this.showData =false;
         this.nombre="";
       
@@ -31,12 +30,12 @@ declare const $: any;
 
        
      
-        setTimeout(() => {          
-            $('#iconoEspera').show();      
-            this.iniciarTablaActividad();
-            this.title="Creación de Actividad";
-            this.serviceActividad.select().subscribe(res=>{
-                var table = $('#dataActividad').DataTable();                   
+        setTimeout(() => {           
+            this.iniciarTablaEntidad();
+            this.title="Creación de Entidades";
+            $('#iconoEspera').show();     
+            this.serviceEntidad.select().subscribe(res=>{
+                var table = $('#dataEntidad').DataTable();                   
                 table.clear();
                 table.rows.add(res);
                 table.draw();     
@@ -52,32 +51,32 @@ declare const $: any;
             alert("Falta Nombre");
             return;
         }
+        let entidad:Entidad;
+        entidad = new Entidad();
+        entidad.ent_nomb = this.nombre;                
         $('#iconoEspera').show();     
-        let actividad:Actividad;
-        actividad = new Actividad();
-        actividad.acg_desc = this.nombre;                
-        if ( this.acg_codi==0)
+        if ( this.ent_codi==0)
         {      
-            this.serviceActividad.insert(actividad).subscribe(res=>{
+            this.serviceEntidad.insert(entidad).subscribe(res=>{
                 this.onClicVolver();
                 $('#iconoEspera').hide();     
             });
         }       
         else
         {
-          actividad.acg_codi=this.acg_codi;
-            this.serviceActividad.update(actividad).subscribe(res=>{
+          entidad.ent_codi=this.ent_codi;
+            this.serviceEntidad.update(entidad).subscribe(res=>{
                 this.onClicVolver();
                 $('#iconoEspera').hide();     
             });
         } 
     }
 
-    iniciarTablaActividad() {
-    var tabla= $('#dataActividad').DataTable( {  
+    iniciarTablaEntidad() {
+    var tabla= $('#dataEntidad').DataTable( {  
         dom: '<"top"f>rt<"bottom"p><"clear">',          
         columns: [                  
-            { title: "Nombre",data:"acg_desc" }            
+            { title: "Nombre",data:"ent_nomb" }            
         ],
         columnDefs:[{
             
@@ -86,7 +85,7 @@ declare const $: any;
             width:'0.5%',
             orderable: false,             
                 render:  ( data, type, full, meta )=>{       
-                return  '<button id="' + full.acg_codi + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.acg_codi + ' data-element-nombre="' + full.acg_desc + '"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button>'          
+                return  '<button id="' + full.pgd_codi + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.ent_codi + ' data-element-nombre="' + full.ent_nomb + '"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button>'          
         
                 }
                                       
@@ -119,16 +118,16 @@ declare const $: any;
                 }                    
          }
     });
-    $('#dataActividad tbody').on('click', 'tr',  (event) => {
-        this.acg_codi= parseInt(event.currentTarget.cells[1].children[0].dataset.elementId);
-        let actividad : Actividad;
-            actividad = new Actividad();
-            actividad.acg_codi=this.acg_codi;
+    $('#dataEntidad tbody').on('click', 'tr',  (event) => {
+        this.ent_codi= parseInt(event.currentTarget.cells[1].children[0].dataset.elementId);
+        let entidad : Entidad;
+            entidad = new Entidad();
+            entidad.ent_codi=this.ent_codi;
             $('#iconoEspera').show();     
-        this.serviceActividad.selectbyId(actividad).subscribe(res=>{
-           this.nombre = res[0].acg_desc;
+        this.serviceEntidad.selectbyId(entidad).subscribe(res=>{
+           this.nombre = res[0].ent_nomb;
            $('#iconoEspera').hide();     
-           this.title="Editar Actividad";
+           this.title="Editar Entidad";
            this.showData =false;
         });
 
@@ -140,20 +139,20 @@ ngAfterViewInit()
     {
      
       this.showData=true;
-      this.iniciarTablaActividad();
+      this.iniciarTablaEntidad();
      // this.showTabla=true;
     }
 
   public  ngOnInit() {  
-        this.acg_codi=0;
+        this.ent_codi=0;
         this.showData =true;
-        this.title="Creación de Actividades";
-        $('#dataActividad').empty();
-        $('#dataActividad').DataTable().destroy();
-        this.iniciarTablaActividad();
+        this.title="Creación de Entidades";
+        $('#dataEntidad').empty();
+        $('#dataEntidad').DataTable().destroy();
+        this.iniciarTablaEntidad();
         $('#iconoEspera').show();     
-        this.serviceActividad.select().subscribe(res=>{
-            var table = $('#dataActividad').DataTable();                   
+        this.serviceEntidad.select().subscribe(res=>{
+            var table = $('#dataEntidad').DataTable();                   
             table.clear();
             table.rows.add(res);
             table.draw();     
@@ -161,6 +160,4 @@ ngAfterViewInit()
         });        
        
         }       
-
-
   }

@@ -3,6 +3,7 @@ import { PoliticaComponent } from "./politica/politica.component";
 import {ComponenteComponent} from "./componente/componente.component";
 import { CategoriaComponent } from "./categoria/categoria.component";
 import { ActividadComponent } from "./actividad/actividad.component";
+import { EntidadComponent } from "./entidad/entidad.component";
 export const AdministrarRoutes: Routes = [       
     {
         path: '',
@@ -29,6 +30,13 @@ export const AdministrarRoutes: Routes = [
         children: [{
             path: 'actividad',
             component: ActividadComponent         
+        }]
+        
+    },{
+        path: '',
+        children: [{
+            path: 'entidad',
+            component: EntidadComponent         
         }]
         
     }

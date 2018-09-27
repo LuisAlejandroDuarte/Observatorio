@@ -1,7 +1,50 @@
 <div class="card border-primary mb-3">
-    <div class="card-header">ACTIVIDAD</div>
-    <div class="card-body text-primary">
-      <h5 class="card-title">Primary card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+    <div class="card-header ">
+      <h4 class="card-title">
+        <small class="description" style="font-size:14px;color:blue">{{title}}</small>
+      </h4>
+    </div>              
+    <div class="card-body">   
+        <div *ngIf="showData">
+                <div class="toolbar">                                
+                        <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="onClicNueva()" style="font-size: 13px" > Nueva</button>
+                    </div>
+                <table id="dataActividad" class="table table-striped table-bordered" style="width:100%">                     
+                                    
+                </table>
+               
+        </div>                        
+        <div *ngIf="!showData">
+
+             
+                      <div class="row">
+                       
+                        <div class="col">
+                                <div class="row center-xs">
+                                        <div class="col-xs-12">
+                                            <div class="box">
+                                                    <div class="form-group">
+                                                            <label style="float: left;" >Nombre</label>
+                                                            <input type="text" class="form-control form-control-sm" [(ngModel)]="nombre" placeholder="Entre Nombre"/>                                            
+                                                    </div>                                                                                                                        
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                        </div>
+                       
+                      </div>
+               
+                    <div class="row end-xs">
+                            <div class="col-xs-6">
+                                <div class="box">
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="onClicGuardar()" >Guardar</button>
+                                        &nbsp;
+                                        <button type="button" class="btn btn-danger btn-sm" (click)="onClicVolver()" >Salir</button>
+                                </div>
+                            </div>
+                        </div>                      
+        </div>                        
     </div>
 </div>

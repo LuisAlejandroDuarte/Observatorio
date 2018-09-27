@@ -20,12 +20,10 @@ class Api extends BaseDatos {
         
         $bd = new BaseDatos();
         $bd->Conectar();
-        $proc = $bd->conectar->prepare('INSERT INTO obs_pgdi (PGD_NOMB,PGD_DESC) VALUES (:pgd_nomb,:pgd_desc)');
+        $proc = $bd->conectar->prepare('INSERT INTO obs_cate (cat_desc) VALUES (:cat_desc)');
 
-            $nombre=json_decode($postdata,true)["pgd_nomb"];
-            $desc=json_decode($postdata,true)["pgd_desc"];
-            $proc->bindValue(':pgd_nomb',$nombre);
-            $proc->bindValue(':pgd_desc',$desc);         
+            $nombre=json_decode($postdata,true)["cat_desc"];            
+            $proc->bindValue(':cat_desc',$nombre);            
             $proc->execute();         
 
          $bd->conectar=null;
@@ -37,7 +35,7 @@ class Api extends BaseDatos {
 
         $bd = new BaseDatos();
         $bd->Conectar();
-        $proc = $bd->conectar->prepare('SELECT pgd_codi, pgd_nomb,pgd_desc FROM obs_pgdi');
+        $proc = $bd->conectar->prepare('SELECT cat_codi, cat_desc FROM obs_cate');
 
       
         $proc->execute();
@@ -50,10 +48,10 @@ class Api extends BaseDatos {
 
     private function selectbyId() {
         $postdata = file_get_contents("php://input");
-        $pgd_codi=json_decode($postdata,true)["pgd_codi"];
+        $cat_codi=json_decode($postdata,true)["cat_codi"];
         $bd = new BaseDatos();
         $bd->Conectar();
-        $proc = $bd->conectar->prepare('SELECT pgd_codi, pgd_nomb,pgd_desc FROM obs_pgdi WHERE pgd_codi=' . $pgd_codi);
+        $proc = $bd->conectar->prepare('SELECT cat_codi, cat_desc FROM obs_cate WHERE cat_codi=' . $cat_codi);
 
       
         $proc->execute();
@@ -66,15 +64,13 @@ class Api extends BaseDatos {
 
     private function update() {
         $postdata = file_get_contents("php://input");             
-        $pgd_codi=json_decode($postdata,true)["pgd_codi"];
+        $cat_codi=json_decode($postdata,true)["cat_codi"];
         $bd = new BaseDatos();
         $bd->Conectar();
-        $proc = $bd->conectar->prepare('UPDATE obs_pgdi SET pgd_nomb=:pgd_nomb ,PGD_DESC=:pgd_desc WHERE pgd_codi=' . $pgd_codi);  
+        $proc = $bd->conectar->prepare('UPDATE obs_cate SET cat_desc=:cat_desc  WHERE cat_codi=' . $cat_codi);  
 
-            $nombre=json_decode($postdata,true)["pgd_nomb"];
-            $desc=json_decode($postdata,true)["pgd_desc"];
-            $proc->bindValue(':pgd_nomb',$nombre);
-            $proc->bindValue(':pgd_desc',$desc);         
+            $nombre=json_decode($postdata,true)["cat_desc"];          
+            $proc->bindValue(':cat_desc',$nombre);            
             $proc->execute();         
 
          $bd->conectar=null;
