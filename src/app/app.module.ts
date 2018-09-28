@@ -12,11 +12,13 @@ import { AdminLayoutComponent } from './layout/layout.component';
 import { MainModule } from './main/main.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { LayoutLoginComponent } from './layout/layoutlogin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    LayoutLoginComponent
   ],
   imports: [
     HttpModule,  

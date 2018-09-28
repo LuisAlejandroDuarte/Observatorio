@@ -8,7 +8,7 @@ const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json charset=utf-8','Accept': 'application/json'})
   };
 @Injectable()
-export class AuthenticationService {
+export class LoginService {
  constructor(private http: HttpClient) {}
 
 

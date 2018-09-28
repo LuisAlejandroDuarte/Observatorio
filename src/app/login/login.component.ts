@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
+declare const $: any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,10 +12,14 @@ export class LoginComponent {
 
     }
 
+    ngOnInit(): void {   
+        $('#iconoEspera').hide();     
+     }
+
     onClicIniciar()
     {
         sessionStorage.setItem("token","xxx");
-        this.router.navigate(['/main']);
+        this.router.navigate(['/administrar']);
     }
 
 }
