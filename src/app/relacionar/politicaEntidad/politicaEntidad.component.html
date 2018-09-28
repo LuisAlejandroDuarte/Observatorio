@@ -5,14 +5,169 @@
             <small class="description" style="font-size:14px;color:blue">{{title}}</small>
           </h4>
         </div>              
-        <div class="card-body">   
-            <div class="form-group">
-                <label>POLÍTICAS</label>
-            
-                <ng-select [(ngModel)]="selectedCarId">
-                        <ng-option *ngFor="let car of cars" [value]="car" >{{car.name}}</ng-option>
-                        <ng-option [value]="'custom'">Custom</ng-option>
-                    </ng-select>                      
+        <div class="card-body">  
+          <div *ngIf="showEntidadPolitica">
+            <div class="row start-xs">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <label>POLÍTICA</label>
+                        <ng-select [(ngModel)]="selPolitica">
+                            <ng-option *ngFor="let politica of listPolitica" [value]="politica" >{{politica.pgd_nomb}}</ng-option>
+                           
+                        </ng-select>  
+                    </div>
                 </div>
+            </div>
+            <div class="row bottom-xs">
+                    <div class="col-lg-4">
+                        <div class="box">
+                                <label>ENTIDAD</label>
+                                <ng-select [(ngModel)]="selEntidad">
+                                    <ng-option *ngFor="let entidad of listEntidad" [value]="entidad" >{{entidad.ent_nomb}}</ng-option>
+                                   
+                                </ng-select> 
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="box">
+                                <label>Fecha Inicio</label>
+                                <form class="form-inline">
+                                        <div class="form-group">
+                                          <div class="input-group">
+                                            <input class="form-control" placeholder="yyyy-mm-dd"
+                                                   name="dp" [(ngModel)]="fechaInicio" ngbDatepicker #d="ngbDatepicker">
+                                            <div class="input-group-append">
+                                              <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 ">
+                        <div class="box">
+                                <label>Fecha Final</label>
+                                <form class="form-inline">
+                                        <div class="form-group">
+                                          <div class="input-group">
+                                            <input class="form-control" placeholder="yyyy-mm-dd"
+                                                   name="dp" [(ngModel)]="fechaFin" ngbDatepicker #d2="ngbDatepicker">
+                                            <div class="input-group-append">
+                                              <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 ">
+                           
+                        <div class="box">
+                                <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="onClicAgregar()" style="font-size: 13px" > Agregar</button>                
+                        </div>                                                        
+                    </div>
+                    
+            </div> 
+            <div class="row bottom-xs" style="margin-top:20px">
+                <div class="col-lg-12">
+                    <div class="box">
+                    <table id="dataEntidadPolitica" class="table table-striped table-bordered" style="width:100%">                     
+                            
+                        </table>
+                    </div>  
+                </div>
+            </div> 
+          </div>    
+          <div *ngIf="showComponente">
+                <div class="row bottom-xs">
+                    <div class="col-xs-10">
+                            <div class="box">
+                                <label>COMPONENTES</label>
+                                <ng-select [(ngModel)]="selComponente">
+                                    <ng-option *ngFor="let componente of listComponente" [value]="componente" >{{componente.com_desc}}</ng-option>
+                                
+                                </ng-select>  
+                            </div>
+                    </div>
+                    <div class="col-lg-2 ">
+                           
+                            <div class="box">
+                                    <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="onClicAgregarEntidadPoliticaComponente()" style="font-size: 13px" > Agregar</button>                
+                            </div>                                                        
+                    </div>
+                </div>
+                <div class="row bottom-xs" style="margin-top:20px">
+                        <div class="col-lg-12">
+                            <div class="box">
+                            <table id="dataComponente" class="table table-striped table-bordered" style="width:100%">                     
+                                    
+                                </table>
+                            </div>  
+                        </div>
+                </div> 
+                <div class="row bottom-xs" style="margin-top:20px">
+                        <div class="col-lg-12">
+                            <div class="box">
+                                    <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="volverPolitica()" style="font-size: 13px" > Política</button>                
+                            </div>  
+                        </div>
+                </div> 
+          </div>
+          <div *ngIf="showCategoria">
+                <div class="row bottom-xs">
+                        <div class="col-xs-10">
+                                <div class="box">
+                                    <label>CATEGORIA</label>
+                                    <ng-select [(ngModel)]="selCategoria">
+                                        <ng-option *ngFor="let categoria of listCategoria" [value]="categoria" >{{categoria.cat_desc}}</ng-option>
+                                    
+                                    </ng-select>  
+                                </div>
+                        </div>
+                        <div class="col-lg-2 ">
+                               
+                                <div class="box">
+                                        <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="onClicAgregar()" style="font-size: 13px" > Agregar</button>                
+                                </div>                                                        
+                        </div>
+                </div>
+                <div class="row bottom-xs" style="margin-top:20px">
+                            <div class="col-lg-12">
+                                <div class="box">
+                                <table id="dataCategoria" class="table table-striped table-bordered" style="width:100%">                     
+                                        
+                                    </table>
+                                </div>  
+                            </div>
+                </div> 
+          </div>
+          <div *ngIf="showActividad">
+                <div class="row bottom-xs">
+                        <div class="col-xs-10">
+                                <div class="box">
+                                    <label>ACTIVIDAD</label>
+                                    <ng-select [(ngModel)]="selActividad">
+                                        <ng-option *ngFor="let actividad of listActividad" [value]="actividad" >{{categoria.cat_desc}}</ng-option>
+                                    
+                                    </ng-select>  
+                                </div>
+                        </div>
+                        <div class="col-lg-2 ">
+                               
+                                <div class="box">
+                                        <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="onClicAgregar()" style="font-size: 13px" > Agregar</button>                
+                                </div>                                                        
+                        </div>
+                </div>
+                <div class="row bottom-xs" style="margin-top:20px">
+                            <div class="col-lg-12">
+                                <div class="box">
+                                <table id="dataActividad" class="table table-striped table-bordered" style="width:100%">                     
+                                        
+                                    </table>
+                                </div>  
+                            </div>
+                </div> 
+          </div>
         </div>
     </div>
