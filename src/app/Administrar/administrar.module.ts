@@ -19,12 +19,14 @@ import { EntidadService } from "../servicio/entidad.service";
 import { ComponenteService } from "../servicio/componente.service";
 import { CategoriaService } from "../servicio/categoria.service";
 import { ActividadService } from "../servicio/actividad.service";
+import { EPCCategoriaActividadService } from "../servicio/epcCategoriaActividad.service";
 
 @NgModule({
     imports: [
         CommonModule,         
         RouterModule.forChild(AdministrarRoutes),
         FormsModule
+        
     ],
     declarations: 
     [ 
@@ -34,9 +36,10 @@ import { ActividadService } from "../servicio/actividad.service";
         CategoriaComponent,
         ActividadComponent,
         CategoriaComponent,
-        CrudPoliticaComponent 
+        CrudPoliticaComponent
+        
     ],
-   providers:[PoliticaService,EntidadService,ComponenteService,CategoriaService,ActividadService]
+   providers:[PoliticaService,EntidadService,ComponenteService,CategoriaService,ActividadService,EPCCategoriaActividadService]
 })
 
 export class AdministrarModule {}

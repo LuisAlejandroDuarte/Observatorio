@@ -16,6 +16,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { EntidadPoliticaService } from "../servicio/entidadPolitica.service";
 import { ComponenteService } from "../servicio/componente.service";
 import { EntidadPoliticaComponenteService } from "../servicio/entidadPoliticaComponente.service";
+import { CategoriaService } from "../servicio/categoria.service";
+import { EPoliticaComponenteCategoriaService } from "../servicio/ePoliticaComponenteCategoria";
+import { ActividadService } from "../servicio/actividad.service";
 @NgModule({
     imports: [
         CommonModule,    
@@ -28,8 +31,8 @@ import { EntidadPoliticaComponenteService } from "../servicio/entidadPoliticaCom
     [ 
         PoliticaEntidadComponent
     ],
-   providers:[PoliticaService,EntidadService,EntidadPoliticaService,
-    ComponenteService,EntidadPoliticaComponenteService]
+   providers:[PoliticaService,EntidadService,EntidadPoliticaService,CategoriaService,
+    ComponenteService,EntidadPoliticaComponenteService,EPoliticaComponenteCategoriaService,ActividadService]
 })
 
 export class RelacionarModule {}

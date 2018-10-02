@@ -6,7 +6,7 @@
       </h4>
     </div>              
     <div class="card-body">   
-        <div *ngIf="showData">
+        <div *ngIf="showDataTabla">
                 <div class="toolbar">                                
                         <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="onClicNueva()" style="font-size: 13px" > Nueva</button>
                     </div>
@@ -15,26 +15,29 @@
                 </table>
                
         </div>                        
-        <div *ngIf="!showData">
-
-             
-                      <div class="row">
-                       
-                        <div class="col">
-                                <div class="row center-xs">
-                                        <div class="col-xs-12">
-                                            <div class="box">
-                                                    <div class="form-group">
-                                                            <label style="float: left;" >Nombre</label>
-                                                            <input type="text" class="form-control form-control-sm" [(ngModel)]="nombre" placeholder="Entre Nombre"/>                                            
-                                                    </div>                                                                                                                        
-                                            </div>
-                                        </div>
-                                       
-                                    </div>
+        <div *ngIf="showData">
+                <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box">
+                                    <div class="form-group">
+                                            <label>Nombre</label>
+                                            <input type="text" class="form-control form-control-sm" [(ngModel)]="nombre" placeholder="Entre Nombre"/>                                            
+                                    </div>                                                                                                                        
+                            </div>
                         </div>
                        
-                      </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-xs-12">
+                                <div class="box">
+                                        <div class="form-group">
+                                                <label>Criterios de Calificación</label>
+                                                <textarea class="form-control"  [(ngModel)]="descripcion"></textarea>
+                                        </div>                                                                                                                        
+                                </div>
+                            </div>
+                           
+                        </div>                                            
                
                     <div class="row end-xs">
                             <div class="col-xs-6">
@@ -45,6 +48,49 @@
                                 </div>
                             </div>
                         </div>                      
-        </div>                        
+        </div>    
+        <div *ngIf="showValores">
+                <div class="row middle-xs">
+                    <div class="col-xs-6">
+                        <div class="box">
+                            <div class="form-group">
+                                    <label>Valoración</label>
+                                    <input class="form-control form-control-sm"  [(ngModel)]="valoracion"/>
+                            </div>                                                                                                                        
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                            <div class="box">
+                                <div class="form-group">
+                                        <label>Inferior</label>
+                                        <input type="number" class="form-control form-control-sm"  [(ngModel)]="inferior"/>
+                                </div>                                                                                                                        
+                            </div>
+                    </div> 
+                    <div class="col-xs-2">
+                            <div class="box">
+                                <div class="form-group">
+                                        <label>Superior</label>
+                                        <input type="number" class="form-control form-control-sm"  [(ngModel)]="superior"/>
+                                </div>                                                                                                                        
+                            </div>
+                    </div>
+                    <div class="col-xs-1">
+                            <div class="box">                                    
+                                    <button type="button" class="btn btn-secondary btn-sm" (click)="onClicAgregarValor()">Agregar Valores</button>
+                            </div>
+                    </div>                  
+                    <table id="dataValores" class="table table-striped table-bordered" style="width:100%">                     
+                                        
+                    </table>
+                 </div> 
+                 <div class="row end-xs">
+                        <div class="col-xs-6">
+                            <div class="box">                                    
+                                    <button type="button" class="btn btn-danger btn-sm" (click)="onClicVolverActividad()">Salir</button>
+                            </div>
+                        </div>
+                    </div>           
+            </div>                    
     </div>
 </div>

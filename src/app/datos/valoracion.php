@@ -21,20 +21,18 @@ class Api extends BaseDatos {
         $bd = new BaseDatos();
         $bd->Conectar();
         $proc = $bd->conectar->prepare('INSERT INTO 
-                                        obs_enpg (epg_enti_codi,epg_pgdi_codi,epg_fini,epg_ffin,epg_punt) 
-                                        VALUES (:epg_enti_codi,:epg_pgdi_codi,:epg_fini,:epg_ffin,:epg_punt)');
+                                        obs_valo (val_acge_codi,val_infe,val_supe,val_desc) 
+                                        VALUES (:val_acge_codi,:val_infe,:val_supe,:val_desc)');
 
-            $epg_enti_codi=json_decode($postdata,true)["epg_enti_codi"];   
-            $epg_pgdi_codi=json_decode($postdata,true)["epg_pgdi_codi"];  
-            $epg_fini=json_decode($postdata,true)["epg_fini"];  
-            $epg_ffin=json_decode($postdata,true)["epg_ffin"];  
-            $epg_punt=json_decode($postdata,true)["epg_punt"];  
+            $val_acge_codi=json_decode($postdata,true)["val_acge_codi"];   
+            $val_infe=json_decode($postdata,true)["val_infe"];  
+            $val_supe=json_decode($postdata,true)["val_supe"];  
+            $val_desc=json_decode($postdata,true)["val_desc"];  
 
-            $proc->bindValue(':epg_enti_codi',$epg_enti_codi); 
-            $proc->bindValue(':epg_pgdi_codi',$epg_pgdi_codi); 
-            $proc->bindValue(':epg_fini',date($epg_fini)); 
-            $proc->bindValue(':epg_ffin',date($epg_ffin)); 
-            $proc->bindValue(':epg_punt',$epg_punt); 
+            $proc->bindValue(':val_acge_codi',$val_acge_codi); 
+            $proc->bindValue(':val_infe',$val_infe); 
+            $proc->bindValue(':val_supe',date($val_supe));
+            $proc->bindValue(':val_desc',date($val_desc));            
             
                        
             $proc->execute();         
@@ -43,32 +41,33 @@ class Api extends BaseDatos {
          $bd=null;      
     }
 
-    private function select() {
-        $postdata = file_get_contents("php://input");
+    // private function select() {
+    //     $postdata = file_get_contents("php://input");
 
-        $bd = new BaseDatos();
-        $bd->Conectar();
-        $proc = $bd->conectar->prepare('SELECT EP.epg_codi, E.ent_codi,E.ent_nomb,P.pgd_codi,P.pgd_nomb,
-                                        EP.epg_fini,EP.epg_ffin,EP.epg_punt
-                                        FROM obs_enti AS E INNER JOIN obs_enpg AS EP ON
-                                        E.ENT_CODI=EP.epg_enti_codi INNER JOIN obs_pgdi AS P ON 
-                                        P.pgd_codi=EP.epg_pgdi_codi ');
+    //     $bd = new BaseDatos();
+    //     $bd->Conectar();
+    //     $proc = $bd->conectar->prepare('SELECT EPC.epc_codi,C.com_desc,EPC.epc_cali
+    //                                     FROM obs_enpc AS EPC INNER JOIN obs_enpg AS EP ON
+    //                                     EPC.epc_enpg_codi=EP.epg_codi INNER JOIN obs_comp AS C ON
+    //                                     C.com_codi=EPC.epc_comp_codi');
 
       
-        $proc->execute();
-        $resp = $proc->fetchAll();
-        echo  json_encode($resp,true) ;
+    //     $proc->execute();
+    //     $resp = $proc->fetchAll();
+    //     echo  json_encode($resp,true) ;
 
-         $bd->conectar=null;
-         $bd=null;      
-    }
+    //      $bd->conectar=null;
+    //      $bd=null;      
+    // }
 
     private function selectbyId() {
         $postdata = file_get_contents("php://input");
-        $ent_codi=json_decode($postdata,true)["ent_codi"];
+        $val_acge_codi=json_decode($postdata,true)["val_acge_codi"];
         $bd = new BaseDatos();
         $bd->Conectar();
-        $proc = $bd->conectar->prepare('SELECT ent_codi, ent_nomb FROM obs_enti WHERE ent_codi=' . $ent_codi);
+        $proc = $bd->conectar->prepare('SELECT VAL.val_cons, VAL.val_desc,VAL.val_infe,VAL.val_supe
+                                    FROM obs_valo AS VAL INNER JOIN obs_acge AS ACG ON
+                                    ACG.acg_codi=VAL.val_acge_codi  WHERE VAL.val_acge_codi=' . $val_acge_codi);
 
       
         $proc->execute();

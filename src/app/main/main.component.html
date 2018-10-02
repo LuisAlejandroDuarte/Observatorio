@@ -1,6 +1,28 @@
+<jqxMenu [width]="width" [height]="height" [autoOpen]="false">
+    <ul>       
+        <li>
+            ADMINISTRAR
+            <ul style="width: 250px;">
+                
+                <li><a style="cursor: pointer;" (click)="onClicPolitica()">Políticas</a></li>
+                <li><a style="cursor: pointer;" (click)="onClicEntidad()">Entidades</a></li>
+                <li><a style="cursor: pointer;" (click)="onClicComponente()">Componentes</a></li>
+                <li><a style="cursor: pointer;" (click)="onClicCategoria()">Categorias</a></li>
+                <li type="separator"></li>                    
+                <li><a style="cursor: pointer;" (click)="onClicActividad()">Actividades</a></li>
+            </ul>
+        </li>
+        <li>
+            RELACIONAR
+            <ul>
+                <li><a style="cursor: pointer;" (click)="onClicPoliticaEntidad()" >Política-Entidad</a></li>
+                                
+            </ul>
+        </li>
+    </ul>
+</jqxMenu> 
 
-
-        <h3>MENÚ PRINCIPAL</h3>
+        <!-- <h3>MENÚ PRINCIPAL</h3>
         <nav class="navbar navbar-expand-lg navbar-light bg-success">
           <a class="navbar-brand text-light" href="https://www.jquery-az.com/" ></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#demo-navbar" aria-controls="demo-navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,11 +36,11 @@
                         ADMINISTRAR
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" style="cursor: pointer;" (click)="onClicPolitica()" >Políticas</a>
-                        <a class="dropdown-item" style="cursor: pointer;" (click)="onClicEntidad()" >Entidades</a>
-                        <a class="dropdown-item" style="cursor: pointer;" (click)="onClicComponente()">Componentes</a>
-                        <a class="dropdown-item"  style="cursor: pointer;" (click)="onClicCategoria()">Categorias</a>
-                        <a class="dropdown-item" style="cursor: pointer;" (click)="onClicActividad()">Actividades</a>                                           
+                        
+                        
+                        
+                        
+                        
                     </div>
                 </li>  
                             
@@ -27,7 +49,7 @@
                       RELACIONAR
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" style="cursor: pointer;" (click)="onClicPoliticaEntidad()" >Política-Entidad</a>
+                      
                   </div>  
                 </li> 
                 
@@ -36,8 +58,8 @@
               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
             </form> -->
-          </div>
+         <!-- </div>
         </nav>   
   
 
-      
+       -->
