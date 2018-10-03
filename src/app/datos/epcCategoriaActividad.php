@@ -21,17 +21,17 @@ class Api extends BaseDatos {
         $bd = new BaseDatos();
         $bd->Conectar();
         $proc = $bd->conectar->prepare('INSERT INTO 
-                                        obs_valo (ecc_enpc_codi,ecc_cate_codi,ecc_cali) 
-                                        VALUES (:ecc_enpc_codi,:ecc_cate_codi,:ecc_cali)');
+                                        obs_epcc_acge (cca_epcc_codi,cca_acge_codi,cca_punt) 
+                                        VALUES (:cca_epcc_codi,:cca_acge_codi,:cca_punt)');
 
-            $ecc_enpc_codi=json_decode($postdata,true)["ecc_enpc_codi"];   
-            $ecc_cate_codi=json_decode($postdata,true)["ecc_cate_codi"];  
-            $ecc_cali=json_decode($postdata,true)["ecc_cali"];  
+            $cca_epcc_codi=json_decode($postdata,true)["cca_epcc_codi"];   
+            $cca_acge_codi=json_decode($postdata,true)["cca_acge_codi"];  
+            $cca_punt=json_decode($postdata,true)["cca_punt"];  
            
 
-            $proc->bindValue(':ecc_enpc_codi',$ecc_enpc_codi); 
-            $proc->bindValue(':ecc_cate_codi',$ecc_cate_codi); 
-            $proc->bindValue(':ecc_cali',date($ecc_cali));            
+            $proc->bindValue(':cca_epcc_codi',$cca_epcc_codi); 
+            $proc->bindValue(':cca_acge_codi',$cca_acge_codi); 
+            $proc->bindValue(':cca_punt',$cca_punt);            
             
                        
             $proc->execute();         
@@ -61,13 +61,12 @@ class Api extends BaseDatos {
 
     private function selectbyId() {
         $postdata = file_get_contents("php://input");
-        $ecc_enpc_codi=json_decode($postdata,true)["ecc_enpc_codi"];
+        $cca_epcc_codi=json_decode($postdata,true)["cca_epcc_codi"];
         $bd = new BaseDatos();
         $bd->Conectar();
-        $proc = $bd->conectar->prepare('SELECT EPCC.ecc_codi,CATE.cat_desc,EPCC.ecc_cali
-                                    FROM obs_epcc AS EPCC INNER JOIN obs_enpc AS ENPC ON
-                                    EPCC.ecc_enpc_codi=ENPC.epc_codi INNER JOIN obs_cate AS CATE ON
-                                    CATE.cat_codi=EPCC.ecc_cate_codi WHERE EPCC.ecc_enpc_codi=' . $ecc_enpc_codi);
+        $proc = $bd->conectar->prepare('SELECT ACGE.acg_desc,ACGE.acg_codi
+                                    FROM obs_epcc_acge AS EPCC INNER JOIN obs_acge AS ACGE ON
+                                    EPCC.cca_acge_codi=ACGE.acg_codi  WHERE EPCC.cca_epcc_codi=' . $cca_epcc_codi);
 
       
         $proc->execute();

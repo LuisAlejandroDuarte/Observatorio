@@ -44,4 +44,10 @@ export class MainComponent implements OnInit {
         this.router.navigate(['/relacionar/politicaEntidad']);
     }
 
+    onClicEvaluar() {
+        this.router.navigate(['/relacionar/evaluar']);
+    }
+
+    
+
 }

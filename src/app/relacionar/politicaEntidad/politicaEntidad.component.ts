@@ -16,6 +16,8 @@ import { EPoliticaComponenteCategoriaService } from "../../servicio/ePoliticaCom
 import { EPoliticaComponenteCategoria } from "../../modelo/ePoliticaComponenteCategoria";
 import { ActividadService } from "../../servicio/actividad.service";
 import { Actividad } from "../../modelo/actividad.modelo";
+import { CategoriaActividadService } from "../../servicio/categoriaActividad.service";
+import { CategoriaActividad } from "../../modelo/categoriaActividad.modelo";
 declare const $: any;
 const moment =  _moment;
 @Component({
@@ -44,14 +46,20 @@ const moment =  _moment;
     inferior:number;
     superior:number;
     descripcion:string;
-
+    title:string;
+    tituloPolitica:string;
+    tituloComponente:string;
+    tituloCategoria:string;
+    tituloActividad:string;
+    ecc_codi:number;
     constructor(private servicePolitica:PoliticaService,private serviceEntidad:EntidadService,
       private serviceEntidadPolitica:EntidadPoliticaService,
       private serviceComponente:ComponenteService,
       private serviceCategoria:CategoriaService,
       private serviceEntidadPoliticaComponente:EntidadPoliticaComponenteService,
       private serviceEPoliticaComponenteCategoria:EPoliticaComponenteCategoriaService,
-      private serviceActividad:ActividadService) {
+      private serviceActividad:ActividadService,
+      private serviceCategoriaActividad:CategoriaActividadService) {
 
     }
 
@@ -59,34 +67,20 @@ const moment =  _moment;
       var tabla= $('#dataActividad').DataTable( {  
           dom: '<"top"f>rt<"bottom"p><"clear">',          
           columns: [                  
-              { title: "Actividad",data:"acg_desc",width:'2%' },              
-              { title: "Inferior",data:"val_infe",width:'0.5%' },
-              { title: "Superior",data:"val_supe",width:'0.5%' },
-              { title: "Descripción",data:"val_desc",width:'2%' },
+              { title: "Actividad",data:"acg_desc",width:'90%' }             
           ],
           columnDefs:[{
               
-              targets: [4],
+              targets: [1],
               data: null,
               width:'0.5%',
               orderable: false,             
                   render:  ( data, type, full, meta )=>{       
-                   return  '<button id="' + full.pgd_codi + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.pgd_codi + ' data-element-nombre="' + full.pgd_nomb + '"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button>'          
+                   return  '<button id="' + full.acg_codi + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.acg_codi + ' data-element-nombre="' + full.acg_desc + '"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button>'          
           
                   }
                                         
-          },{
-              
-            targets: [5],
-            data: null,
-            width:'0.5%',
-            orderable: false,             
-                render:  ( data, type, full, meta )=>{       
-                return  '<button id="' + full.pgd_codi + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.pgd_codi + ' data-element-nombre="' + full.pgd_nomb + '"><i class="fa fa-trash" aria-hidden="true" ></i></button>'          
-        
-                }
-                                      
-        }],
+          }],
           responsive: true,
           scrollY:        200,                             
           language: {
@@ -115,7 +109,7 @@ const moment =  _moment;
                   }                    
            }
       });
-      $('#dataCategoria tbody').on('click', 'tr',  (event) => {       
+      $('#dataActividad tbody').on('click', 'tr',  (event) => {       
        
        
       });
@@ -136,7 +130,7 @@ const moment =  _moment;
               width:'0.5%',
               orderable: false,             
                   render:  ( data, type, full, meta )=>{       
-                   return  '<button id="' + full.pgd_codi + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.pgd_codi + ' data-element-nombre="' + full.pgd_nomb + '"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button>'          
+                   return  '<button id="' + full.ecc_codi + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.ecc_codi + ' data-element-nombre="' + full.cat_desc + '"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button>'          
           
                   }
                                         
@@ -147,7 +141,7 @@ const moment =  _moment;
             width:'0.5%',
             orderable: false,             
                 render:  ( data, type, full, meta )=>{       
-                return  '<button id="' + full.pgd_codi + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.pgd_codi + ' data-element-nombre="' + full.pgd_nomb + '"><i class="fa fa-trash" aria-hidden="true" ></i></button>'          
+                return  '<button id="' + full.ecc_codi + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.ecc_codi + ' data-element-nombre="' + full.cat_desc + '"><i class="fa fa-trash" aria-hidden="true" ></i></button>'          
         
                 }
                                       
@@ -181,7 +175,8 @@ const moment =  _moment;
            }
       });
       $('#dataCategoria tbody').on('click', 'tr',  (event) => {       
-       
+        this.ecc_codi =parseInt(event.currentTarget.cells[2].children[0].dataset.elementId);
+        this.tituloCategoria=event.currentTarget.cells[2].children[0].dataset.elementNombre;
         this.showEntidadPolitica=false;
         this.showComponente =false;
         this.showActividad=true;
@@ -189,10 +184,20 @@ const moment =  _moment;
         this.serviceActividad.select().subscribe(res=>{
           this.listActividad=res;
           this.iniciarTablaActividad();
-        });
 
-      });
-      
+          let categoriaActividad = new CategoriaActividad();
+            categoriaActividad.cca_epcc_codi =  this.ecc_codi;
+          this.serviceCategoriaActividad.selectbyId(categoriaActividad).subscribe(res=>{
+            var table = $('#dataActividad').DataTable();                   
+            table.clear();
+            table.rows.add(res);
+            table.draw();     
+            $('#iconoEspera').hide(); 
+
+            this.title = this.tituloCategoria;
+          });          
+        });
+      });      
   }
 
 
@@ -211,7 +216,7 @@ const moment =  _moment;
               width:'0.5%',
               orderable: false,             
                   render:  ( data, type, full, meta )=>{       
-                   return  '<button id="' + full.epc_codi + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.epc_codi + ' data-element-nombre="' + full.pgd_nomb + '"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button>'          
+                   return  '<button id="' + full.epc_codi + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.epc_codi + ' data-element-nombre="' + full.com_desc + '"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button>'          
           
                   }
                                         
@@ -257,6 +262,7 @@ const moment =  _moment;
       });
       $('#dataComponente tbody').on('click', 'tr',  (event) => {       
         this.epc_codi= parseInt(event.currentTarget.cells[2].children[0].dataset.elementId);
+        this.tituloComponente=event.currentTarget.cells[2].children[0].dataset.elementNombre;
         this.showEntidadPolitica=false;
         this.showComponente =false;
         this.showActividad=false;
@@ -273,7 +279,8 @@ const moment =  _moment;
             table.clear();
             table.rows.add(res2);
             table.draw();     
-            $('#iconoEspera').hide();  
+            $('#iconoEspera').hide(); 
+            this.title=this.tituloComponente; 
           });
         });      
       });
@@ -343,6 +350,7 @@ const moment =  _moment;
       });
       $('#dataEntidadPolitica tbody').on('click', 'tr',  (event) => {       
         this.epg_codi= parseInt(event.currentTarget.cells[5].children[0].dataset.elementId);
+        this.tituloPolitica=event.currentTarget.cells[5].children[0].dataset.elementNombre;
         this.showEntidadPolitica=false;
         this.showComponente =true;
         this.showActividad=false;
@@ -362,6 +370,7 @@ const moment =  _moment;
               table.rows.add(res);
               table.draw();     
               $('#iconoEspera').hide();  
+              this.title=this.tituloPolitica;
             });
 
           });         
@@ -386,7 +395,8 @@ const moment =  _moment;
              var table = $('#dataEntidadPolitica').DataTable();                   
              table.clear();
              table.rows.add(res3);
-             table.draw();     
+             table.draw();   
+             this.title="POLÍTICAS";  
             })
            
         });
@@ -441,10 +451,12 @@ const moment =  _moment;
         this.iniciarTablaEntidadPolitica();
         $('#iconoEspera').show();     
         this.serviceEntidadPolitica.select().subscribe(res3=>{
-          var table = $('#dataEntidadPolitica').DataTable();                   
+          var table = $('#dataEntidadPolitica').DataTable();    
+          this.title="POLÍTICAS"               
           table.clear();
           table.rows.add(res3);
           table.draw();     
+         
           $('#iconoEspera').hide();     
          }) 
       });
@@ -510,12 +522,60 @@ const moment =  _moment;
         let entidadPolitica= new EntidadPoliticaComponente();
           entidadPolitica.epc_enpg_codi=  this.epg_codi;
         this.serviceEntidadPoliticaComponente.selectbyId(entidadPolitica).subscribe(res=>{
+         
           var table = $('#dataComponente').DataTable();                   
           table.clear();
           table.rows.add(res);
           table.draw();     
           $('#iconoEspera').hide();  
+          this.title=this.tituloPolitica;
         });
       });
+    }
+
+    volverCategoria() {
+      this.showEntidadPolitica=false;
+      this.showComponente =false;
+      this.showActividad=false;
+      this.showCategoria=true;
+      $('#dataCategoria').empty();
+     // $('#dataCategoria').DataTable().destroy();
+     setTimeout(() => { 
+      this.iniciarTablaCategoria();
+
+      let ePoliticaComponenteCategoria = new EPoliticaComponenteCategoria();
+        ePoliticaComponenteCategoria.ecc_enpc_codi=this.epc_codi;
+      this.serviceEPoliticaComponenteCategoria.selectbyId(ePoliticaComponenteCategoria).subscribe(res2=>{
+        var table = $('#dataCategoria').DataTable();                   
+        table.clear();
+        table.rows.add(res2);
+        table.draw();     
+        $('#iconoEspera').hide();  
+        this.title=this.tituloComponente;
+      });
+
+     });
+      
+    }
+
+    AgregarActividad() 
+    {
+      let categoriaActividad = new CategoriaActividad();
+        categoriaActividad.cca_acge_codi = this.selActividad.acg_codi;
+        categoriaActividad.cca_epcc_codi = this.ecc_codi;
+        categoriaActividad.cca_punt=0;
+        this.iniciarTablaActividad();
+        this.serviceCategoriaActividad.insert(categoriaActividad).subscribe(res=>{
+            this.serviceCategoriaActividad.selectbyId(categoriaActividad).subscribe(res2=>{
+              setTimeout(() => { 
+                
+                var table = $('#dataActividad').DataTable();                   
+                table.clear();
+                table.rows.add(res2);
+                table.draw();     
+                $('#iconoEspera').hide(); 
+              });             
+            });
+        });
     }
   }

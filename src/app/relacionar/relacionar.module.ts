@@ -19,6 +19,10 @@ import { EntidadPoliticaComponenteService } from "../servicio/entidadPoliticaCom
 import { CategoriaService } from "../servicio/categoria.service";
 import { EPoliticaComponenteCategoriaService } from "../servicio/ePoliticaComponenteCategoria";
 import { ActividadService } from "../servicio/actividad.service";
+import { CategoriaActividadService } from "../servicio/categoriaActividad.service";
+import { EvaluarComponent } from "./evaluar/evaluar.component";
+import { jqxTreeComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxtree';
+import { ArbolService } from "../servicio/arbol.service";
 @NgModule({
     imports: [
         CommonModule,    
@@ -29,10 +33,13 @@ import { ActividadService } from "../servicio/actividad.service";
     ],
     declarations: 
     [ 
-        PoliticaEntidadComponent
+        PoliticaEntidadComponent,
+        EvaluarComponent,
+        jqxTreeComponent
     ],
    providers:[PoliticaService,EntidadService,EntidadPoliticaService,CategoriaService,
-    ComponenteService,EntidadPoliticaComponenteService,EPoliticaComponenteCategoriaService,ActividadService]
+    ComponenteService,EntidadPoliticaComponenteService,EPoliticaComponenteCategoriaService,
+    ActividadService,CategoriaActividadService,ArbolService]
 })
 
 export class RelacionarModule {}

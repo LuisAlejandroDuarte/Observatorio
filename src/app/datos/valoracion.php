@@ -31,8 +31,8 @@ class Api extends BaseDatos {
 
             $proc->bindValue(':val_acge_codi',$val_acge_codi); 
             $proc->bindValue(':val_infe',$val_infe); 
-            $proc->bindValue(':val_supe',date($val_supe));
-            $proc->bindValue(':val_desc',date($val_desc));            
+            $proc->bindValue(':val_supe',$val_supe);
+            $proc->bindValue(':val_desc',$val_desc);            
             
                        
             $proc->execute();         

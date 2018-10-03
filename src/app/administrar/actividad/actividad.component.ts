@@ -26,7 +26,7 @@ declare const $: any;
     valoracion:string;
     inferior:number;
     superior:number;
-
+    nombreActividad:string;
     onClicNueva() {
         this.title="Crear Actividad";
        
@@ -89,7 +89,7 @@ declare const $: any;
         var tabla= $('#dataValores').DataTable( {  
             dom: '<"top"f>rt<"bottom"p><"clear">',          
             columns: [                  
-                { title: "Valoración",data:"val_desc",width:"3%" },   
+                { title: "Valoración",data:"val_desc",width:"30%" },   
                 { title: "Inferior",data:"val_infe",width:"3%" },            
                 { title: "Superior",data:"val_supe",width:"3%" }            
             ],
@@ -100,7 +100,7 @@ declare const $: any;
                 width:'0.5%',
                 orderable: false,             
                     render:  ( data, type, full, meta )=>{       
-                    return  '<button id="' + full.val_cons + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.val_cons + ' data-element-nombre="' + full.val_cons + '"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button>'          
+                    return  '<button id="' + full.val_cons + '" class="btn btn-block btn-default btn-sm" title="Eliminar" data-element-id=' + full.val_cons + ' data-element-nombre="' + full.val_cons + '"><i class="fa fa-trash-o" aria-hidden="true" ></i></button>'          
             
                     }
                                           
@@ -201,7 +201,7 @@ declare const $: any;
     $('#dataActividad tbody').on('click', 'tr',  (event) => {
         
         this.acg_codi= parseInt(event.currentTarget.cells[2].children[0].dataset.elementId);
-
+        this.nombreActividad =event.currentTarget.cells[2].children[0].dataset.elementNombre;
         if ( this.columna==2)
         {
                 let actividad : Actividad;
@@ -230,9 +230,19 @@ declare const $: any;
                 $('#dataValores').empty();
                 
 //                $('#dataValores').DataTable().destroy();
-                this.iniciarTablaValores();
-                
-                 this.serviceValoracion.selectbyId().subscribe(res=>{
+               
+                let actividad = new EPCCategoriaActividad();
+                    actividad.val_acge_codi=this.acg_codi;
+                 this.serviceValoracion.selectbyId(actividad).subscribe(res=>{
+
+                    $('#dataValores').empty();
+                    this.iniciarTablaValores();
+                    var table = $('#dataValores').DataTable();                   
+                    table.clear();
+                    table.rows.add(res);
+                    table.draw();     
+                    $('#iconoEspera').hide();       
+                    this.title = this.nombreActividad;
 
                  }); 
             });
@@ -294,7 +304,7 @@ declare const $: any;
 
                 $('#dataValores').empty();
                 $('#dataValores').DataTable().destroy();
-
+                this.iniciarTablaValores();
                 var table = $('#dataValores').DataTable();                   
                 table.clear();
                 table.rows.add(res2);
