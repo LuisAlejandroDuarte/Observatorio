@@ -85,6 +85,61 @@ declare const $: any;
         } 
     }
 
+    iniciarTablaValores() {
+        var tabla= $('#dataValores').DataTable( {  
+            dom: '<"top"f>rt<"bottom"p><"clear">',          
+            columns: [                  
+                { title: "Valoración",data:"val_desc",width:"3%" },   
+                { title: "Inferior",data:"val_infe",width:"3%" },            
+                { title: "Superior",data:"val_supe",width:"3%" }            
+            ],
+            columnDefs:[{
+                
+                targets: [3],
+                data: null,
+                width:'0.5%',
+                orderable: false,             
+                    render:  ( data, type, full, meta )=>{       
+                    return  '<button id="' + full.val_cons + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.val_cons + ' data-element-nombre="' + full.val_cons + '"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button>'          
+            
+                    }
+                                          
+            }],
+            responsive: true,
+            scrollY:        200,                             
+            language: {
+                
+                    "sProcessing":     "Procesando...",
+                    "sLengthMenu":     "Mostrar _MENU_ registros",
+                    "sZeroRecords":    "No se encontraron resultados",
+                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix":    "",
+                    "sSearch":         "Buscar:",
+                    "sUrl":            "",
+                    "sInfoThousands":  ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst":    "Primero",
+                        "sLast":     "Último",
+                        "sNext":     "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }                    
+             }
+        });
+        $('#dataValores tbody').on('click', 'tr',  (event) => {                       
+           
+        });
+       
+        
+    }
+
     iniciarTablaActividad() {
     var tabla= $('#dataActividad').DataTable( {  
         dom: '<"top"f>rt<"bottom"p><"clear">',          
@@ -170,82 +225,38 @@ declare const $: any;
             this.showDataTabla =false;
             this.showData=false;
             this.showValores=true;
-            this.iniciarTablaValores();
+
+            setTimeout(() => {          
+                $('#dataValores').empty();
+                
+//                $('#dataValores').DataTable().destroy();
+                this.iniciarTablaValores();
+                
+                 this.serviceValoracion.selectbyId().subscribe(res=>{
+
+                 }); 
+            });
+            
+
 
         }
 
        
     });
     $('#dataActividad tbody').on('click', 'td',  (event) => {
-        this.columna=event.currentTarget.cellIndex
-        
+        this.columna=event.currentTarget.cellIndex;
     });
     
     }
-    iniciarTablaValores() {
-        var tabla= $('#dataValores').DataTable( {  
-            dom: '<"top"f>rt<"bottom"p><"clear">',          
-            columns: [                  
-                { title: "Valoración",data:"val_desc" },   
-                { title: "Inferior",data:"val_infe" },            
-                { title: "Superior",data:"val_supe" }            
-            ],
-            columnDefs:[{
-                
-                targets: [3],
-                data: null,
-                width:'0.5%',
-                orderable: false,             
-                    render:  ( data, type, full, meta )=>{       
-                    return  '<button id="' + full.val_cons + '" class="btn btn-block btn-default btn-sm" title="Editar" data-element-id=' + full.val_cons + ' data-element-nombre="' + full.val_cons + '"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button>'          
-            
-                    }
-                                          
-            }],
-            responsive: true,
-            scrollY:        200,                             
-            language: {
-                
-                    "sProcessing":     "Procesando...",
-                    "sLengthMenu":     "Mostrar _MENU_ registros",
-                    "sZeroRecords":    "No se encontraron resultados",
-                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-                    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-                    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-                    "sInfoPostFix":    "",
-                    "sSearch":         "Buscar:",
-                    "sUrl":            "",
-                    "sInfoThousands":  ",",
-                    "sLoadingRecords": "Cargando...",
-                    "oPaginate": {
-                        "sFirst":    "Primero",
-                        "sLast":     "Último",
-                        "sNext":     "Siguiente",
-                        "sPrevious": "Anterior"
-                    },
-                    "oAria": {
-                        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                    }                    
-             }
-        });
-        $('#dataValores tbody').on('click', 'tr',  (event) => {
-            
-           
-           
-        });
-       
-        
-        }
-ngAfterViewInit()
+
+    ngAfterViewInit()
     {
-     
+    
         this.showDataTabla =true;
         this.showData=false;
         this.showValores=false;
-      this.iniciarTablaActividad();
-     // this.showTabla=true;
+         this.iniciarTablaActividad();
+    // this.showTabla=true;
     }
 
   public  ngOnInit() {  
@@ -280,12 +291,16 @@ ngAfterViewInit()
         $('#iconoEspera').show();   
         this.serviceValoracion.insert(actividad).subscribe(res=>{
             this.serviceValoracion.selectbyId(actividad).subscribe(res2=>{
+
+                $('#dataValores').empty();
+                $('#dataValores').DataTable().destroy();
+
                 var table = $('#dataValores').DataTable();                   
                 table.clear();
-                table.rows.add(res);
+                table.rows.add(res2);
                 table.draw();     
                 $('#iconoEspera').hide();         
             });
         });
-  }
+    }
 }
