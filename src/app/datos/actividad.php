@@ -20,10 +20,13 @@ class Api extends BaseDatos {
         
         $bd = new BaseDatos();
         $bd->Conectar();
-        $proc = $bd->conectar->prepare('INSERT INTO obs_acge (acg_desc) VALUES (:acg_desc)');
+        $proc = $bd->conectar->prepare('INSERT INTO obs_acge (acg_desc,acg_crca) VALUES (:acg_desc,:acg_crca)');
 
-            $nombre=json_decode($postdata,true)["acg_desc"];            
+            $nombre=json_decode($postdata,true)["acg_desc"];    
+            $acg_crca=json_decode($postdata,true)["acg_crca"];    
+            
             $proc->bindValue(':acg_desc',$nombre);            
+            $proc->bindValue(':acg_crca',$acg_crca);
             $proc->execute();         
 
          $bd->conectar=null;
@@ -35,7 +38,7 @@ class Api extends BaseDatos {
 
         $bd = new BaseDatos();
         $bd->Conectar();
-        $proc = $bd->conectar->prepare('SELECT acg_codi, acg_desc FROM obs_acge');
+        $proc = $bd->conectar->prepare('SELECT acg_codi, acg_desc,acg_crca FROM obs_acge');
 
       
         $proc->execute();
@@ -51,7 +54,7 @@ class Api extends BaseDatos {
         $acg_codi=json_decode($postdata,true)["acg_codi"];
         $bd = new BaseDatos();
         $bd->Conectar();
-        $proc = $bd->conectar->prepare('SELECT acg_codi, acg_desc FROM obs_acge WHERE acg_codi=' . $acg_codi);
+        $proc = $bd->conectar->prepare('SELECT acg_codi, acg_desc,acg_crca FROM obs_acge WHERE acg_codi=' . $acg_codi);
 
       
         $proc->execute();
@@ -67,10 +70,12 @@ class Api extends BaseDatos {
         $acg_codi=json_decode($postdata,true)["acg_codi"];
         $bd = new BaseDatos();
         $bd->Conectar();
-        $proc = $bd->conectar->prepare('UPDATE obs_acge SET acg_desc=:acg_desc  WHERE acg_codi=' . $acg_codi);  
+        $proc = $bd->conectar->prepare('UPDATE obs_acge SET acg_desc=:acg_desc,acg_crca=:acg_crca  WHERE acg_codi=' . $acg_codi);  
 
             $nombre=json_decode($postdata,true)["acg_desc"];          
+            $acg_crca=json_decode($postdata,true)["acg_crca"];    
             $proc->bindValue(':acg_desc',$nombre);            
+            $proc->bindValue(':acg_crca',$acg_crca);            
             $proc->execute();         
 
          $bd->conectar=null;

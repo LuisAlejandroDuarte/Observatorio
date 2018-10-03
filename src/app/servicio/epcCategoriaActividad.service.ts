@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 import { Actividad } from "../modelo/actividad.modelo";
 import { EntidadPolitica } from "../modelo/entidadPolitica.modelo";
 import { EntidadPoliticaComponente } from "../modelo/entidadPoliticaComponente.modelo";
+import { EPoliticaComponenteCategoria } from "../modelo/ePoliticaComponenteCategoria";
+import { EPCCategoriaActividad } from "../modelo/epcCategoriaActividad.modelo";
 
 
 // header('Content-type: application/json');
@@ -17,35 +19,35 @@ const httpOptions = {
     'Accept': 'application/json'})
   };
 @Injectable()
-export class EntidadPoliticaComponenteService {
+export class EPCCategoriaActividadService {
  constructor(public http: HttpClient) {}
     
 
- insert(entidadPolitica: EntidadPoliticaComponente): Observable<EntidadPoliticaComponente> {
+ insert(categoriaActividad: EPCCategoriaActividad): Observable<EPCCategoriaActividad> {
         
   //  let token = new tokens();
    
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-     return this.http.post<EntidadPoliticaComponente>('http://localhost:8037/Observatorio/src/app/datos/entidadPoliticaComponente.php?url=ingresar',JSON.stringify(entidadPolitica),httpOptions);
+     return this.http.post<EPCCategoriaActividad>('http://localhost:8037/Observatorio/src/app/datos/valoracion.php?url=ingresar',JSON.stringify(categoriaActividad),httpOptions);
    }
 
-   select(): Observable<EntidadPoliticaComponente[]> {
+   select(): Observable<EPCCategoriaActividad[]> {
         
     //  let token = new tokens();
      
     
       //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-       return this.http.post<EntidadPoliticaComponente[]>('http://localhost:8037/Observatorio/src/app/datos/entidadPoliticaComponente.php?url=select',null,httpOptions);
+       return this.http.post<EPCCategoriaActividad[]>('http://localhost:8037/Observatorio/src/app/datos/valoracion.php?url=select',null,httpOptions);
      }
 
-  selectbyId(entidadPoliticaComponente: EntidadPoliticaComponente): Observable<EntidadPoliticaComponente[]> {
+  selectbyId(categoriaActividad: EPCCategoriaActividad): Observable<EPCCategoriaActividad[]> {
     
   //  let token = new tokens();
     
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-      return this.http.post<EntidadPoliticaComponente[]>('http://localhost:8037/Observatorio/src/app/datos/entidadPoliticaComponente.php?url=selectbyId',JSON.stringify(entidadPoliticaComponente),httpOptions);
+      return this.http.post<EPCCategoriaActividad[]>('http://localhost:8037/Observatorio/src/app/datos/valoracion.php?url=selectbyId',JSON.stringify(categoriaActividad),httpOptions);
     }
 
 //   update(actividad: Actividad): Observable<Actividad> {

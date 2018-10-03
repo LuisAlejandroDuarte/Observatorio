@@ -61,10 +61,13 @@ class Api extends BaseDatos {
 
     private function selectbyId() {
         $postdata = file_get_contents("php://input");
-        $ent_codi=json_decode($postdata,true)["ent_codi"];
+        $epc_enpg_codi=json_decode($postdata,true)["epc_enpg_codi"];
         $bd = new BaseDatos();
         $bd->Conectar();
-        $proc = $bd->conectar->prepare('SELECT ent_codi, ent_nomb FROM obs_enti WHERE ent_codi=' . $ent_codi);
+        $proc = $bd->conectar->prepare('SELECT EPC.epc_codi,C.com_desc,EPC.epc_cali
+                                    FROM obs_enpc AS EPC INNER JOIN obs_enpg AS EP ON
+                                    EPC.epc_enpg_codi=EP.epg_codi INNER JOIN obs_comp AS C ON
+                                    C.com_codi=EPC.epc_comp_codi WHERE EPC.epc_enpg_codi=' . $epc_enpg_codi);
 
       
         $proc->execute();

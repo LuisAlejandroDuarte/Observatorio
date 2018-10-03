@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import { Actividad } from "../modelo/actividad.modelo";
 import { EntidadPolitica } from "../modelo/entidadPolitica.modelo";
 import { EntidadPoliticaComponente } from "../modelo/entidadPoliticaComponente.modelo";
+import { EPoliticaComponenteCategoria } from "../modelo/ePoliticaComponenteCategoria";
 
 
 // header('Content-type: application/json');
@@ -17,35 +18,35 @@ const httpOptions = {
     'Accept': 'application/json'})
   };
 @Injectable()
-export class EntidadPoliticaComponenteService {
+export class EPoliticaComponenteCategoriaService {
  constructor(public http: HttpClient) {}
     
 
- insert(entidadPolitica: EntidadPoliticaComponente): Observable<EntidadPoliticaComponente> {
+ insert(entidadPolitica: EPoliticaComponenteCategoria): Observable<EPoliticaComponenteCategoria> {
         
   //  let token = new tokens();
    
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-     return this.http.post<EntidadPoliticaComponente>('http://localhost:8037/Observatorio/src/app/datos/entidadPoliticaComponente.php?url=ingresar',JSON.stringify(entidadPolitica),httpOptions);
+     return this.http.post<EPoliticaComponenteCategoria>('http://localhost:8037/Observatorio/src/app/datos/ePoliticaComponenteCategoria.php?url=ingresar',JSON.stringify(entidadPolitica),httpOptions);
    }
 
-   select(): Observable<EntidadPoliticaComponente[]> {
+   select(): Observable<EPoliticaComponenteCategoria[]> {
         
     //  let token = new tokens();
      
     
       //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-       return this.http.post<EntidadPoliticaComponente[]>('http://localhost:8037/Observatorio/src/app/datos/entidadPoliticaComponente.php?url=select',null,httpOptions);
+       return this.http.post<EPoliticaComponenteCategoria[]>('http://localhost:8037/Observatorio/src/app/datos/ePoliticaComponenteCategoria.php?url=select',null,httpOptions);
      }
 
-  selectbyId(entidadPoliticaComponente: EntidadPoliticaComponente): Observable<EntidadPoliticaComponente[]> {
+  selectbyId(ePoliticaComponenteCategoria: EPoliticaComponenteCategoria): Observable<EPoliticaComponenteCategoria[]> {
     
   //  let token = new tokens();
     
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-      return this.http.post<EntidadPoliticaComponente[]>('http://localhost:8037/Observatorio/src/app/datos/entidadPoliticaComponente.php?url=selectbyId',JSON.stringify(entidadPoliticaComponente),httpOptions);
+      return this.http.post<EPoliticaComponenteCategoria[]>('http://localhost:8037/Observatorio/src/app/datos/ePoliticaComponenteCategoria.php?url=selectbyId',JSON.stringify(ePoliticaComponenteCategoria),httpOptions);
     }
 
 //   update(actividad: Actividad): Observable<Actividad> {

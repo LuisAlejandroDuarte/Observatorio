@@ -17,5 +17,15 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "files": [
+    "src/app/app.module.ts",
+    "node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxlistmenu.ts",
+    "node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxmenu.ts"    
+    
+  ]
+
 }

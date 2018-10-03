@@ -108,7 +108,7 @@
                 <div class="row bottom-xs" style="margin-top:20px">
                         <div class="col-lg-12">
                             <div class="box">
-                                    <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="volverPolitica()" style="font-size: 13px" > Política</button>                
+                                    <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="volverPolitica()" style="font-size: 13px" > Políticas</button>                
                             </div>  
                         </div>
                 </div> 
@@ -127,7 +127,7 @@
                         <div class="col-lg-2 ">
                                
                                 <div class="box">
-                                        <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="onClicAgregar()" style="font-size: 13px" > Agregar</button>                
+                                        <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="onClicAgregarCategoria()" style="font-size: 13px" > Agregar</button>                
                                 </div>                                                        
                         </div>
                 </div>
@@ -140,25 +140,54 @@
                                 </div>  
                             </div>
                 </div> 
+                <div class="row bottom-xs" style="margin-top:20px">
+                    <div class="col-lg-12">
+                        <div class="box">
+                                <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="volverComponente()" style="font-size: 13px" > Componentes</button>                
+                        </div>  
+                    </div>
+            </div> 
           </div>
           <div *ngIf="showActividad">
-                <div class="row bottom-xs">
-                        <div class="col-xs-10">
+                <div class="row">
+                        <div class="col-xs-6">
                                 <div class="box">
                                     <label>ACTIVIDAD</label>
                                     <ng-select [(ngModel)]="selActividad">
-                                        <ng-option *ngFor="let actividad of listActividad" [value]="actividad" >{{categoria.cat_desc}}</ng-option>
+                                        <ng-option *ngFor="let actividad of listActividad" [value]="actividad" >{{actividad.acg_desc}}</ng-option>
                                     
                                     </ng-select>  
                                 </div>
                         </div>
                         <div class="col-lg-2 ">
-                               
-                                <div class="box">
-                                        <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="onClicAgregar()" style="font-size: 13px" > Agregar</button>                
-                                </div>                                                        
+                               <div class="form-group">
+                                   <label>Inferior</label>
+                                   <input type="number" class="form-control input-sm" [(ngModel)]="inferior"/>
+                               </div>
+                                
+                        </div>
+                        <div class="col-lg-2 ">
+                            <div class="form-group">
+                                <label>Superior</label>
+                                <input type="number" class="form-control" [(ngModel)]="superior"/>
+                            </div>
+                             
                         </div>
                 </div>
+                <div class="row bottom-xs">
+                    <div class="col-xs-10">
+                            <div class="box">
+                                <label>DESCRIPCIÓN</label>
+                                <textarea class="form-control"  [(ngModel)]="descripcion"></textarea>                               
+                            </div>
+                    </div>
+                    <div class="col-lg-2 ">
+                           
+                            <div class="box">
+                                    <button mat-raised-button class="btn btn-fill btn-primary btn-md exoregular" (click)="onClicAgregarValoracion()" style="font-size: 13px" > Agregar</button>                
+                            </div>                                                        
+                    </div>
+            </div>
                 <div class="row bottom-xs" style="margin-top:20px">
                             <div class="col-lg-12">
                                 <div class="box">

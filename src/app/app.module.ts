@@ -18,7 +18,7 @@ import { LayoutLoginComponent } from './layout/layoutlogin.component';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LayoutLoginComponent
+    LayoutLoginComponent        
   ],
   imports: [
     HttpModule,  
@@ -26,7 +26,7 @@ import { LayoutLoginComponent } from './layout/layoutlogin.component';
     BrowserModule,   
     BrowserAnimationsModule,
     RouterModule.forRoot(AppRoutes),     
-    MainModule    
+    MainModule   
   ],
 
   providers: [AuthGuard],

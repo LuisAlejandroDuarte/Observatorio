@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+
 declare const $: any;
 @Component({
     selector: 'app-main',
@@ -8,7 +9,8 @@ declare const $: any;
 
 
 export class MainComponent implements OnInit {
-
+    width: number = 670;
+    height: number = 30;
     constructor(private router: Router) {
 
     }
