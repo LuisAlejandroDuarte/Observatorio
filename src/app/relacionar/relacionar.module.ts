@@ -22,6 +22,7 @@ import { ActividadService } from "../servicio/actividad.service";
 import { CategoriaActividadService } from "../servicio/categoriaActividad.service";
 import { EvaluarComponent } from "./evaluar/evaluar.component";
 import { jqxTreeComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxtree';
+import { jqxPanelComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxpanel';
 import { ArbolService } from "../servicio/arbol.service";
 @NgModule({
     imports: [
@@ -35,7 +36,8 @@ import { ArbolService } from "../servicio/arbol.service";
     [ 
         PoliticaEntidadComponent,
         EvaluarComponent,
-        jqxTreeComponent
+        jqxTreeComponent,
+        jqxPanelComponent
     ],
    providers:[PoliticaService,EntidadService,EntidadPoliticaService,CategoriaService,
     ComponenteService,EntidadPoliticaComponenteService,EPoliticaComponenteCategoriaService,

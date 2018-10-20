@@ -1,23 +1,30 @@
 import { Component, ViewChild } from "@angular/core";
 import { jqxTreeComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxtree';
-import { jqxExpanderComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxexpander';
 import { ArbolService } from "../../servicio/arbol.service";
 import { Arbol } from "../../modelo/arbol.modelo";
+import { jqxPanelComponent } from "jqwidgets-scripts/jqwidgets-ts/angular_jqxpanel";
 declare const $: any;
 @Component({
     selector: 'app-evaluar',
     templateUrl: './evaluar.component.html'    
   })
+
   export class EvaluarComponent {
 
+    @ViewChild('myTree') myTree: jqxTreeComponent;
+    @ViewChild('myPanel') myPanel: jqxPanelComponent;
+
     arbol:Arbol[];
-  
+    anchoArbol:string;
+    alturaArbol:string;
     constructor(private serviceArbol:ArbolService) {
 
     }
 
 
     ngOnInit() {   
+        this.anchoArbol= (screen.width * 0.4).toString();
+        this.alturaArbol=(screen.height * 0.4).toString();
         this.serviceArbol.generar().subscribe(res=>{
            
             this.data=res;
@@ -51,4 +58,27 @@ declare const $: any;
     // the sub items collection name. Each jqxTree item has a 'label' property, but in the JSON data, we have a 'text' field. The last parameter 
     // specifies the mapping between the 'text' and 'label' fields.  
     records: any = this.dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
+
+
+    counter: number = 0;
+   
+    myTreeOnSelect(event: any): void {
+        let args = event.args;
+        let item  = this.myTree.getItem(event.args);
+        let id =event.args.owner.selectedItem.id;
+        let parentId =event.args.owner.selectedItem.parentId.substring(0,1);
+
+        if (parentId=="b")
+        {
+            parentId =event.args.owner.selectedItem.id;
+        }
+
+       
+
+        if (this.counter > 1) {
+            //this.myPanel.prepend('<div style="margin-top: 5px;">Selected: ' + item.label + '</div>');
+        }
+        this.counter++;
+    };
+
   }

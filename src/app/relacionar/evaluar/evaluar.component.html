@@ -1,1 +1,8 @@
-<jqxTree #myTree [width]="300" [source]="records"></jqxTree>
+<div style="float: left">
+    <jqxTree #myTree [width]="anchoArbol" [height]="alturaArbol" [source]="records"
+    (onSelect)="myTreeOnSelect($event)"></jqxTree>
+</div>
+
+<div style="margin-left: 20px; float: left; border: none !important">    
+    <jqxPanel #myPanel [width]="anchoArbol" [height]="alturaArbol"></jqxPanel>    
+</div>

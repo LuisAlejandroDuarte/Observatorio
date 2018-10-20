@@ -48,7 +48,7 @@ class Api extends BaseDatos {
             foreach($rows as $row)
             {
                 $cont=$cont+1;
-               $proc= $bd->conectar->prepare('INSERT obs_arbol (id,parentid,text) VALUES (' .$row[0] . ',-1, "' . $row[1] . '")');
+               $proc= $bd->conectar->prepare('INSERT obs_arbol (id,parentid,text) VALUES (' .$row[0] . ',"-1", "' . $row[1] . '")');
                    $proc->execute(); 
                 
               
@@ -64,7 +64,7 @@ class Api extends BaseDatos {
                 foreach($rows2 as $row2)  
                 {
                    
-                   $proc3= $bd->conectar->prepare('INSERT INTO obs_arbol (id,parentid,text) VALUES (' . $row2[0] . ',' . $row2[1] . ', "' . $row2[4] . '")');
+                   $proc3= $bd->conectar->prepare('INSERT INTO obs_arbol (id,parentid,text) VALUES ("a' . $row2[0] . '",' . $row[0] . ', "' . $row2[4] . '")');
                    $proc3->execute();  
                    
                    $proc3= $bd->conectar->prepare('SELECT EPCC.ECC_CODI,EPCC.ECC_ENPC_CODI,CATE.CAT_CODI, CATE.CAT_DESC from obs_epcc AS EPCC 
@@ -77,7 +77,7 @@ class Api extends BaseDatos {
 
                     foreach($rows3 as $row3)  
                     {
-                        $proc3= $bd->conectar->prepare('INSERT INTO obs_arbol (id,parentid,text) VALUES (' . $row3[0] . ',' . $row2[0] . ', "' . $row3[3] . '")');
+                        $proc3= $bd->conectar->prepare('INSERT INTO obs_arbol (id,parentid,text) VALUES ("b' . $row3[0] . '","a' . $row2[0] . '", "' . $row3[3] . '")');
                         $proc3->execute(); 
 
                         $proc4= $bd->conectar->prepare('SELECT EPCCACGE.cca_codi,EPCCACGE.CCA_EPCC_CODI,ACGE.ACG_CODI,ACGE.ACG_DESC from obs_epcc_acge AS EPCCACGE 
@@ -89,7 +89,7 @@ class Api extends BaseDatos {
 
                         foreach($rows4 as $row4)  
                         {   
-                            $proc3= $bd->conectar->prepare('INSERT INTO obs_arbol (id,parentid,text) VALUES (' . $row4[0] . ',' . $row3[0] . ', "' . $row4[3] . '")');
+                            $proc3= $bd->conectar->prepare('INSERT INTO obs_arbol (id,parentid,text) VALUES (' . $row4[0] . ',"b' . $row3[0] . '", "' . $row4[3] . '")');
                             $proc3->execute();     
                         }
 
