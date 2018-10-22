@@ -38,7 +38,7 @@ class Api extends BaseDatos {
         $proc = $bd->conectar->prepare('DELETE from obs_arbol');
         $proc->execute(); 
 
-        $proc = $bd->conectar->prepare('SELECT * from obs_pgdi');
+        $proc = $bd->conectar->prepare('SELECT distinct PGDI.PGD_CODI,PGDI.PGD_NOMB from obs_enpg AS ENPG  left join obs_pgdi AS PGDI  ON ENPG.EPG_PGDI_CODI=PGDI.PGD_CODI');
 
             $cont=0;
             $cont2=0;
