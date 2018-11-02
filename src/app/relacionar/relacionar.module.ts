@@ -24,6 +24,7 @@ import { EvaluarComponent } from "./evaluar/evaluar.component";
 import { jqxTreeComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxtree';
 import { jqxPanelComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxpanel';
 import { ArbolService } from "../servicio/arbol.service";
+import { EvaluarService } from "../servicio/evaluar.service";
 @NgModule({
     imports: [
         CommonModule,    
@@ -41,7 +42,7 @@ import { ArbolService } from "../servicio/arbol.service";
     ],
    providers:[PoliticaService,EntidadService,EntidadPoliticaService,CategoriaService,
     ComponenteService,EntidadPoliticaComponenteService,EPoliticaComponenteCategoriaService,
-    ActividadService,CategoriaActividadService,ArbolService]
+    ActividadService,CategoriaActividadService,ArbolService,EvaluarService]
 })
 
 export class RelacionarModule {}

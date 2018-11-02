@@ -3,6 +3,8 @@ import { jqxTreeComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxtree
 import { ArbolService } from "../../servicio/arbol.service";
 import { Arbol } from "../../modelo/arbol.modelo";
 import { jqxPanelComponent } from "jqwidgets-scripts/jqwidgets-ts/angular_jqxpanel";
+import { EvaluarService } from "src/app/servicio/evaluar.service";
+import { CategoriaActividad } from "src/app/modelo/categoriaActividad.modelo";
 declare const $: any;
 @Component({
     selector: 'app-evaluar',
@@ -17,7 +19,8 @@ declare const $: any;
     arbol:Arbol[];
     anchoArbol:string;
     alturaArbol:string;
-    constructor(private serviceArbol:ArbolService) {
+    constructor(private serviceArbol:ArbolService,
+        private serviceEvaluar:EvaluarService) {
 
     }
 
@@ -25,8 +28,9 @@ declare const $: any;
     ngOnInit() {   
         this.anchoArbol= (screen.width * 0.4).toString();
         this.alturaArbol=(screen.height * 0.4).toString();
+        $('#iconoEspera').show();   
         this.serviceArbol.generar().subscribe(res=>{
-           
+            $('#iconoEspera').hide();   
             this.data=res;
             this.source.localdata=this.data;
             this.dataAdapter = new jqx.dataAdapter(this.source, { autoBind: true });
@@ -71,6 +75,13 @@ declare const $: any;
         if (parentId=="b")
         {
             parentId =event.args.owner.selectedItem.id;
+            let categoriaActividad = new  CategoriaActividad();
+                categoriaActividad.cca_codi=parentId;
+
+            this.serviceEvaluar.selectbyId(categoriaActividad).subscribe(res=>{
+
+            });
+
         }
 
        
