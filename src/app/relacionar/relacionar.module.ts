@@ -25,6 +25,7 @@ import { jqxTreeComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxtree
 import { jqxPanelComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxpanel';
 import { ArbolService } from "../servicio/arbol.service";
 import { EvaluarService } from "../servicio/evaluar.service";
+import { jqxGridComponent } from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 @NgModule({
     imports: [
         CommonModule,    
@@ -38,7 +39,8 @@ import { EvaluarService } from "../servicio/evaluar.service";
         PoliticaEntidadComponent,
         EvaluarComponent,
         jqxTreeComponent,
-        jqxPanelComponent
+        jqxPanelComponent,
+        jqxGridComponent
     ],
    providers:[PoliticaService,EntidadService,EntidadPoliticaService,CategoriaService,
     ComponenteService,EntidadPoliticaComponenteService,EPoliticaComponenteCategoriaService,

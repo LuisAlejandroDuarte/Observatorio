@@ -1,8 +1,21 @@
-<div style="float: left">
-    <jqxTree #myTree [width]="anchoArbol" [height]="alturaArbol" [source]="records"
-    (onSelect)="myTreeOnSelect($event)"></jqxTree>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+            <jqxTree #myTree [width]="anchoArbol" [height]="alturaArbol" [source]="records" (onSelect)="myTreeOnSelect($event)"></jqxTree>
+    </div>
+    <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+            <jqxGrid   [width]="getWidth()" [source]="dataAdapter2" [columns]="columns" [columnsresize]="true">
+                </jqxGrid>   
+                <div class="row" style="margin-top:10px">
+                        <div class="col-lg-1 col-md-1 col-xs-1 col-sm-1">
+                                <button type="button" class="btn btn-primary btn-sm" (click)="onClicValor()">Guardar</button>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+                                <input class="form-control form-control-sm"  style="width:100%"  [(ngModel)]="puntaje" [disabled]="habilitarInputPuntaje" />
+                         </div>
+                   
+                   
+                </div>                                              
+    </div>
+
 </div>
 
-<div style="margin-left: 20px; float: left; border: none !important">    
-    <jqxPanel #myPanel [width]="anchoArbol" [height]="alturaArbol"></jqxPanel>    
-</div>

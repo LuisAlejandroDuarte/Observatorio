@@ -33,5 +33,14 @@ export class EvaluarService {
       return this.http.post<EPCCategoriaActividad[]>('http://localhost:8037/Observatorio/src/app/datos/evaluar.php?url=selectbyId',JSON.stringify(categoria),httpOptions);
     }
 
+
+    selectPuntaje(categoria: CategoriaActividad): Observable<CategoriaActividad[]> {
+
+          return this.http.post<CategoriaActividad[]>('http://localhost:8037/Observatorio/src/app/datos/evaluar.php?url=selectbyPuntaje',JSON.stringify(categoria),httpOptions);
+        }
+  
+    update(categoria: CategoriaActividad): Observable<CategoriaActividad[]> {
+          return this.http.post<CategoriaActividad[]>('http://localhost:8037/Observatorio/src/app/datos/evaluar.php?url=update',JSON.stringify(categoria),httpOptions);
+        }            
   
 }

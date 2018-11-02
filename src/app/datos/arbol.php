@@ -89,7 +89,7 @@ class Api extends BaseDatos {
 
                         foreach($rows4 as $row4)  
                         {   
-                            $proc3= $bd->conectar->prepare('INSERT INTO obs_arbol (id,parentid,text) VALUES (' . $row4[0] . ',"b' . $row3[0] . '", "' . $row4[3] . '")');
+                            $proc3= $bd->conectar->prepare('INSERT INTO obs_arbol (id,parentid,text,value) VALUES (' . $row4[0] . ',"b' . $row3[0] . '", "' . $row4[3] . '","' . $row4[2] . '")');
                             $proc3->execute();     
                         }
 
