@@ -5,4 +5,7 @@ export class CategoriaActividad
     cca_acge_codi:number;
     cca_punt:number;
     cca_evid:string;
+
+    pgd_nomb:string;
+    epg_punt:number;
 }

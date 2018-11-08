@@ -105,13 +105,46 @@ class Api extends BaseDatos {
             $proc = $bd->conectar->prepare('UPDATE  obs_enpc SET epc_cali=' .  $rows2[0]["Puntaje"] . ' WHERE epc_codi=' . $ecc_enpc_codi);
             $proc->execute(); 
 
+            $proc = $bd->conectar->prepare('SELECT epc_enpg_codi
+            from obs_enpc AS enpc
+            WHERE enpc.epc_codi=' . $ecc_enpc_codi);  
+            $proc->execute(); 
+            $rows2 = $proc->fetchAll();    
+
+            $codi=$rows2[0]["epc_enpg_codi"];
             
+            $proc = $bd->conectar->prepare('SELECT avg(acge.CCA_PUNT) As Puntaje from  obs_enpg AS enpg inner join obs_enpc as enpc on enpc.EPC_ENPG_CODI=enpg.EPG_CODI 
+            inner join obs_epcc as epcc on epcc.ECC_ENPC_CODI=enpc.EPC_CODI
+            inner join obs_epcc_acge as acge on acge.CCA_EPCC_CODI=epcc.ECC_CODI            
+            where enpg.EPG_CODI=' . $rows2[0]["epc_enpg_codi"]);  
+            $proc->execute(); 
+            $rows2 = $proc->fetchAll();           
+
+           
+            $proc = $bd->conectar->prepare('UPDATE  obs_enpg SET EPG_PUNT=' .  $rows2[0]["Puntaje"] . ' WHERE EPG_CODI=' . $codi);
+            $proc->execute(); 
+            
+            echo  json_encode($rows2[0]["Puntaje"],true) ;
 
          $bd->conectar=null;
          $bd=null;      
     }
 
+    private function updatePolitica() {
+        $postdata = file_get_contents("php://input");        
+        $bd = new BaseDatos();
+        $bd->Conectar();
+        $proc = $bd->conectar->prepare('SELECT enpg.EPG_CODI, pgdi.pgd_nomb, enpg.epg_punt
+        from obs_enpg AS enpg inner join obs_pgdi as pgdi on pgdi.pgd_codi=enpg.epg_pgdi_codi');
 
+      
+        $proc->execute();
+        $resp = $proc->fetchAll();
+        echo  json_encode($resp,true) ;
+
+         $bd->conectar=null;
+         $bd=null;      
+    }
     
 }
 $api = new Api();  

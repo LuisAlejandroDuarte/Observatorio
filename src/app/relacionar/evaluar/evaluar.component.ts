@@ -96,6 +96,30 @@ declare const $: any;
         { text: 'Valor Inferior', datafield: 'val_infe', width: 100 },
         { text: 'Valor Superior', datafield: 'val_supe', width: 100 }      
     ];
+
+    source3: any =
+    {
+        datatype: 'array',
+        datafields: [
+            { name: 'Política', type: 'string' },
+            { name: 'valor', type: 'float' },                
+        ],
+        id: 'epg_codi',
+        localdata: null
+    };
+    dataAdapter3: any = new jqx.dataAdapter(this.source3);
+	getWidth2() : any {
+		if (document.body.offsetWidth < 850) {
+			return '90%';
+		}
+		
+		return 850;
+	}
+    columns3: any[] =
+    [
+        { text: 'Política', datafield: 'pgd_nomb', width: 300 },
+        { text: 'Valor', datafield: 'epg_punt', width: 100 }        
+    ];
    
     myTreeOnSelect(event: any): void {
         this.habilitarInputPuntaje=true;
@@ -137,7 +161,14 @@ declare const $: any;
         cate.cca_punt=parseFloat(this.puntaje);
         $('#iconoEspera').show();   
         this.serviceEvaluar.update(cate).subscribe(res=>{
-            $('#iconoEspera').hide();   
+          
+            this.serviceEvaluar.updatePolitica().subscribe(res2=>{
+                $('#iconoEspera').hide();  
+                this.source3.localdata=res2;
+                this.dataAdapter3= new jqx.dataAdapter(this.source3);
+                
+            })
+            
         })
 
     }

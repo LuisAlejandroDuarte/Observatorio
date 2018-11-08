@@ -42,5 +42,7 @@ export class EvaluarService {
     update(categoria: CategoriaActividad): Observable<CategoriaActividad[]> {
           return this.http.post<CategoriaActividad[]>('http://localhost:8037/Observatorio/src/app/datos/evaluar.php?url=update',JSON.stringify(categoria),httpOptions);
         }            
-  
+     updatePolitica(): Observable<CategoriaActividad[]> {
+      return this.http.post<CategoriaActividad[]>('http://localhost:8037/Observatorio/src/app/datos/evaluar.php?url=updatePolitica',null,httpOptions);
+    }  
 }
