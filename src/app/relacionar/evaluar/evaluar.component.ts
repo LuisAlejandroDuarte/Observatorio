@@ -101,8 +101,8 @@ declare const $: any;
     {
         datatype: 'array',
         datafields: [
-            { name: 'Política', type: 'string' },
-            { name: 'valor', type: 'float' },                
+            { name: 'pgd_nomb', type: 'string' },
+            { name: 'epg_punt', type: 'float' },                
         ],
         id: 'epg_codi',
         localdata: null

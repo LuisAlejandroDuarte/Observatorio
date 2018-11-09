@@ -134,8 +134,10 @@ class Api extends BaseDatos {
         $postdata = file_get_contents("php://input");        
         $bd = new BaseDatos();
         $bd->Conectar();
-        $proc = $bd->conectar->prepare('SELECT enpg.EPG_CODI, pgdi.pgd_nomb, enpg.epg_punt
-        from obs_enpg AS enpg inner join obs_pgdi as pgdi on pgdi.pgd_codi=enpg.epg_pgdi_codi');
+        $proc = $bd->conectar->prepare('SELECT distinct enpg.EPG_CODI, pgdi.pgd_nomb, enpg.epg_punt
+        from obs_enpg AS enpg inner join obs_pgdi as pgdi on pgdi.pgd_codi=enpg.epg_pgdi_codi inner join 
+         obs_enpc as enpc on enpc.epc_enpg_codi=enpg.epg_codi inner join obs_epcc as epcc on epcc.ecc_enpc_codi=enpc.epc_codi
+         inner join obs_epcc_acge as acge on acge.cca_epcc_codi=epcc.ecc_codi');
 
       
         $proc->execute();
