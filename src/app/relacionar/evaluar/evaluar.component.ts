@@ -6,6 +6,8 @@ import { jqxPanelComponent } from "jqwidgets-scripts/jqwidgets-ts/angular_jqxpan
 import { jqxGridComponent } from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid";
 import { EvaluarService } from "src/app/servicio/evaluar.service";
 import { CategoriaActividad } from "src/app/modelo/categoriaActividad.modelo";
+import { jqxTreeGridComponent } from "jqwidgets-scripts/jqwidgets-ts/angular_jqxtreegrid";
+ 
 declare const $: any;
 @Component({
     selector: 'app-evaluar',
@@ -16,6 +18,7 @@ declare const $: any;
 
     @ViewChild('myTree') myTree: jqxTreeComponent;
     @ViewChild('myPanel') myPanel: jqxPanelComponent;
+    @ViewChild('myTreeGrid') myTreeGrid: jqxTreeGridComponent;
 
     arbol:Arbol[];
     anchoArbol:string;
@@ -99,27 +102,28 @@ declare const $: any;
 
     source3: any =
     {
-        datatype: 'array',
-        datafields: [
-            { name: 'pgd_nomb', type: 'string' },
-            { name: 'epg_punt', type: 'float' },                
+        dataType: 'array',
+        dataFields: [
+            { name: 'text', type: 'string' },           
+            { name: 'id', type: 'string' },
+            { name: 'parentid', type: 'string' },
+            { name: 'value', type: 'float' }           
         ],
-        id: 'epg_codi',
-        localdata: null
-    };
-    dataAdapter3: any = new jqx.dataAdapter(this.source3);
-	getWidth2() : any {
-		if (document.body.offsetWidth < 850) {
-			return '90%';
-		}
-		
-		return 850;
-	}
-    columns3: any[] =
-    [
-        { text: 'Política', datafield: 'pgd_nomb', width: 300 },
-        { text: 'Valor', datafield: 'epg_punt', width: 100 }        
-    ];
+        hierarchy:
+        {
+            keyDataField: { name: 'id' },
+            parentDataField: { name: 'parentid' }
+        },
+        id: 'id',
+        localData: null
+};
+ dataAdapter3: any = new jqx.dataAdapter(this.source);
+ columns2: any[] =
+ [  
+    { text: 'Nombre', dataField: 'text', align: 'center', width: 200 },  
+    { text: 'Valor', dataField: 'value',  align: 'center', cellsAlign: 'right', width: 80 }
+
+ ];
    
     myTreeOnSelect(event: any): void {
         this.habilitarInputPuntaje=true;
@@ -164,7 +168,7 @@ declare const $: any;
           
             this.serviceEvaluar.updatePolitica().subscribe(res2=>{
                 $('#iconoEspera').hide();  
-                this.source3.localdata=res2;
+                this.source3.localData=res2;
                 this.dataAdapter3= new jqx.dataAdapter(this.source3);
                 
             })

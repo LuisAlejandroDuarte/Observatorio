@@ -131,21 +131,81 @@ class Api extends BaseDatos {
     }
 
     private function updatePolitica() {
-        $postdata = file_get_contents("php://input");        
+        $postdata = file_get_contents("php://input");             
+        
         $bd = new BaseDatos();
         $bd->Conectar();
-        $proc = $bd->conectar->prepare('SELECT distinct enpg.EPG_CODI, pgdi.pgd_nomb, enpg.epg_punt
-        from obs_enpg AS enpg inner join obs_pgdi as pgdi on pgdi.pgd_codi=enpg.epg_pgdi_codi inner join 
-         obs_enpc as enpc on enpc.epc_enpg_codi=enpg.epg_codi inner join obs_epcc as epcc on epcc.ecc_enpc_codi=enpc.epc_codi
-         inner join obs_epcc_acge as acge on acge.cca_epcc_codi=epcc.ecc_codi');
+        $proc = $bd->conectar->prepare('DELETE from obs_arbol2');
+        $proc->execute(); 
+
+        $proc = $bd->conectar->prepare('SELECT distinct PGDI.PGD_CODI,PGDI.PGD_NOMB,ENPG.EPG_PUNT from obs_enpg AS ENPG  left join obs_pgdi AS PGDI  ON ENPG.EPG_PGDI_CODI=PGDI.PGD_CODI');
+
+            $cont=0;
+            $cont2=0;
+            $proc->execute();         
+            $rows = $proc->fetchAll(); 
+            
+            foreach($rows as $row)
+            {
+                $cont=$cont+1;
+               $proc= $bd->conectar->prepare('INSERT obs_arbol2 (id,parentid,text,value) VALUES (' .$row[0] . ',"-1", "' . $row[1] . '",' . $row[2] . ')');
+                   $proc->execute(); 
+                
+              
+
+                $proc2=$bd->conectar->prepare('SELECT ENPC.epc_codi, PGDI.pgd_codi, PGDI.pgd_nomb,COMP.com_codi, COMP.com_desc,ENPC.EPC_CALI 
+                    from obs_enpg AS ENPG 
+                    INNER JOIN obs_enpc AS ENPC ON ENPC.epc_enpg_codi=ENPG.epg_codi 
+                    INNER JOIN obs_pgdi AS PGDI ON PGDI.PGD_CODI=ENPG.EPG_PGDI_CODI
+                    INNER JOIN obs_comp AS COMP ON COMP.COM_CODI=ENPC.EPC_COMP_CODI WHERE PGDI.pgd_codi=' . $row[0] );
+                 $proc2->execute(); 
+                $rows2 = $proc2->fetchAll();     
+               
+                foreach($rows2 as $row2)  
+                {
+                   
+                   $proc3= $bd->conectar->prepare('INSERT INTO obs_arbol2 (id,parentid,text,value) VALUES ("a' . $row2[0] . '",' . $row[0] . ', "' . $row2[4] . '",' . $row2[5] . ')');
+                   $proc3->execute();  
+                   
+                   $proc3= $bd->conectar->prepare('SELECT EPCC.ECC_CODI,EPCC.ECC_ENPC_CODI,CATE.CAT_CODI, CATE.CAT_DESC,EPCC.ECC_CALI from obs_epcc AS EPCC 
+                   INNER JOIN obs_enpc AS ENPC ON ENPC.EPC_CODI=EPCC.ECC_ENPC_CODI
+                   INNER JOIn obs_cate AS CATE ON CATE.CAT_CODI=EPCC.ECC_CATE_CODI WHERE EPCC.ECC_ENPC_CODI=' .  $row2[0]);
+
+                   $proc3->execute();  
+
+                   $rows3 = $proc3->fetchAll();      
+
+                    foreach($rows3 as $row3)  
+                    {
+                        $proc3= $bd->conectar->prepare('INSERT INTO obs_arbol2 (id,parentid,text,value) VALUES ("b' . $row3[0] . '","a' . $row2[0] . '", "' . $row3[3] . '",' . $row3[4] . ')');
+                        $proc3->execute(); 
+
+                        $proc4= $bd->conectar->prepare('SELECT EPCCACGE.cca_codi,EPCCACGE.CCA_EPCC_CODI,ACGE.ACG_CODI,ACGE.ACG_DESC,EPCCACGE.CCA_PUNT from obs_epcc_acge AS EPCCACGE 
+                        INNER JOIN obs_epcc AS EPCC ON EPCC.ECC_CODI=EPCCACGE.CCA_EPCC_CODI
+                        INNER JOIN obs_acge AS ACGE ON ACGE.ACG_CODI=EPCCACGE.CCA_ACGE_CODI WHERE EPCCACGE.CCA_EPCC_CODI=' . $row3[0]);
+                        $proc4->execute(); 
+
+                        $rows4 = $proc4->fetchAll();  
+
+                        foreach($rows4 as $row4)  
+                        {   
+                            $proc3= $bd->conectar->prepare('INSERT INTO obs_arbol2 (id,parentid,text,value) VALUES (' . $row4[0] . ',"b' . $row3[0] . '", "' . $row4[3] . '","' . $row4[4] . '")');
+                            $proc3->execute();     
+                        }
+
+                    }
+                }            
+            }
+
+            $proc = $bd->conectar->prepare('SELECT id,parentid,text,value FROM obs_arbol2');
 
       
-        $proc->execute();
-        $resp = $proc->fetchAll();
-        echo  json_encode($resp,true) ;
-
-         $bd->conectar=null;
-         $bd=null;      
+            $proc->execute();
+            $resp = $proc->fetchAll();
+            echo  json_encode($resp,true) ;
+    
+             $bd->conectar=null;
+             $bd=null;      
     }
     
 }

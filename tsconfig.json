@@ -27,7 +27,8 @@
     "node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxmenu.ts",
     "node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxtree.ts",   
     "node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxpanel.ts",
-    "node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid.ts"  
+    "node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid.ts",  
+    "node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxtreegrid"  
     
   ]
 

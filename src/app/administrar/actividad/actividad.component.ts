@@ -63,6 +63,12 @@ declare const $: any;
             alert("Falta Nombre");
             return;
         }
+
+        if (this.descripcion=="" || this.descripcion==undefined)
+        {
+            alert("Falta Criterios de Calificación");
+            return;
+        }
         $('#iconoEspera').show();     
         let actividad:Actividad;
         actividad = new Actividad();
@@ -313,4 +319,4 @@ declare const $: any;
             });
         });
     }
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
