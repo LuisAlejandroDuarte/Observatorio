@@ -36,6 +36,7 @@ declare const $: any;
         this.anchoArbol= (screen.width * 0.4).toString();
         this.alturaArbol=(screen.height * 0.4).toString();
         $('#iconoEspera').show();   
+        this.habilitarInputPuntaje=true;
         this.serviceArbol.generar().subscribe(res=>{
             $('#iconoEspera').hide();   
             this.data=res;
@@ -45,6 +46,14 @@ declare const $: any;
             // the sub items collection name. Each jqxTree item has a 'label' property, but in the JSON data, we have a 'text' field. The last parameter 
             // specifies the mapping between the 'text' and 'label' fields.  
             this.records= this.dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
+
+            this.serviceEvaluar.updatePolitica().subscribe(res2=>{
+                $('#iconoEspera').hide();  
+                this.source3.localData=res2;
+                this.dataAdapter3= new jqx.dataAdapter(this.source3);
+                this.myTreeGrid.expandAll();
+            })
+
         }); 
      }
 
@@ -120,8 +129,8 @@ declare const $: any;
  dataAdapter3: any = new jqx.dataAdapter(this.source);
  columns2: any[] =
  [  
-    { text: 'Nombre', dataField: 'text', align: 'center', width: 200 },  
-    { text: 'Valor', dataField: 'value',  align: 'center', cellsAlign: 'right', width: 80 }
+    { text: 'Nombre', dataField: 'text', align: 'center', width: 500 },  
+    { text: 'Valor', dataField: 'value',  align: 'center', cellsAlign: 'right', width: 200 }
 
  ];
    
@@ -170,7 +179,8 @@ declare const $: any;
                 $('#iconoEspera').hide();  
                 this.source3.localData=res2;
                 this.dataAdapter3= new jqx.dataAdapter(this.source3);
-                
+                this.myTreeGrid.render();
+                this.myTreeGrid.expandRow(1);
             })
             
         })

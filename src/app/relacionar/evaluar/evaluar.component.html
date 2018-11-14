@@ -6,30 +6,35 @@
     </div>
     <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
         <div class="row">
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="row">
+                  <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+                      <input class="form-control form-control-sm"  style="width:100%"  [(ngModel)]="puntaje" [disabled]="habilitarInputPuntaje" />
+                      
+                  </div>
+                  <div class="col-lg-4 col-md-9 col-xs-9 col-sm-9">
+                      <button type="button" class="btn btn-primary btn-sm" (click)="onClicValor()">Guardar</button>
+                  </div>
+                </div>                                                                   
+            </div> 
+         </div>     
+        <div class="row" style="margin-top:10px">
          <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
            <jqxGrid   [autoheight]="true" [source]="dataAdapter2" [columns]="columns" [columnsresize]="true">
            </jqxGrid> 
          </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top:20px">
+          <label>RESULTADOS</label>
          <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                <jqxTreeGrid #myTreeGrid [width]="400"
-                 [source]="dataAdapter3" [columns]="columns2"
-                [pageable]="true" [sortable]="true">
+                <jqxTreeGrid #myTreeGrid [width]="700"
+                 [source]="dataAdapter3" [columns]="columns2" 
+                [sortable]="true">
                 </jqxTreeGrid>   
          </div>
         </div>               
                        
-                        <div class="row">
-                                <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-                                       
-                                                <button type="button" class="btn btn-primary btn-sm" (click)="onClicValor()">Guardar</button>
-                                       
-                                       
-                                                <input class="form-control form-control-sm"  style="width:100%"  [(ngModel)]="puntaje" [disabled]="habilitarInputPuntaje" />
-                                       
-                                </div> 
-                             </div>        
+                           
                 </div>
              </div>    
              <div class="row">
