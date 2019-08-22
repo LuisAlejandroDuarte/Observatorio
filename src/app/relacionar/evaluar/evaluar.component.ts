@@ -7,6 +7,7 @@ import { jqxGridComponent } from "jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid
 import { EvaluarService } from "src/app/servicio/evaluar.service";
 import { CategoriaActividad } from "src/app/modelo/categoriaActividad.modelo";
 import { jqxTreeGridComponent } from "jqwidgets-scripts/jqwidgets-ts/angular_jqxtreegrid";
+
  
 declare const $: any;
 @Component({
@@ -19,6 +20,7 @@ declare const $: any;
     @ViewChild('myTree') myTree: jqxTreeComponent;
     @ViewChild('myPanel') myPanel: jqxPanelComponent;
     @ViewChild('myTreeGrid') myTreeGrid: jqxTreeGridComponent;
+
 
     arbol:Arbol[];
     anchoArbol:string;
@@ -33,12 +35,14 @@ declare const $: any;
 
 
     ngOnInit() {   
+    
+
         this.anchoArbol= (screen.width * 0.4).toString();
         this.alturaArbol=(screen.height * 0.4).toString();
         $('#iconoEspera').show();   
         this.habilitarInputPuntaje=true;
         this.serviceArbol.generar().subscribe(res=>{
-            $('#iconoEspera').hide();   
+           
             this.data=res;
             this.source.localdata=this.data;
             this.dataAdapter = new jqx.dataAdapter(this.source, { autoBind: true });
@@ -46,12 +50,13 @@ declare const $: any;
             // the sub items collection name. Each jqxTree item has a 'label' property, but in the JSON data, we have a 'text' field. The last parameter 
             // specifies the mapping between the 'text' and 'label' fields.  
             this.records= this.dataAdapter.getRecordsHierarchy('id', 'parentid', 'items', [{ name: 'text', map: 'label' }]);
-
+            $('#iconoEspera').hide();  
+      
             this.serviceEvaluar.updatePolitica().subscribe(res2=>{
-                $('#iconoEspera').hide();  
-                this.source3.localData=res2;
-                this.dataAdapter3= new jqx.dataAdapter(this.source3);
-                this.myTreeGrid.expandAll();
+                // $('#iconoEspera').hide();  
+                // this.source3.localData=res2;
+                // this.dataAdapter3= new jqx.dataAdapter(this.source3);
+               // this.myTreeGrid.expandAll();
             })
 
         }); 
@@ -130,7 +135,7 @@ declare const $: any;
  columns2: any[] =
  [  
     { text: 'Nombre', dataField: 'text', align: 'center', width: 500 },  
-    { text: 'Valor', dataField: 'value',  align: 'center', cellsAlign: 'right', width: 200 }
+    { text: 'Valor', dataField: 'value',  align: 'center', cellsAlign: 'right', width: 99 }
 
  ];
    
@@ -169,21 +174,25 @@ declare const $: any;
     };
 
     onClicValor() {
-        let cate = new CategoriaActividad();
-        cate = this.categoriaActividad;
-        cate.cca_punt=parseFloat(this.puntaje);
-        $('#iconoEspera').show();   
-        this.serviceEvaluar.update(cate).subscribe(res=>{
-          
-            this.serviceEvaluar.updatePolitica().subscribe(res2=>{
-                $('#iconoEspera').hide();  
-                this.source3.localData=res2;
-                this.dataAdapter3= new jqx.dataAdapter(this.source3);
-                this.myTreeGrid.render();
-                this.myTreeGrid.expandRow(1);
+
+        if (!this.habilitarInputPuntaje)
+        {
+            let cate = new CategoriaActividad();
+            cate = this.categoriaActividad;
+            cate.cca_punt=parseFloat(this.puntaje);
+            $('#iconoEspera').show();   
+            this.serviceEvaluar.update(cate).subscribe(res=>{
+              
+                this.serviceEvaluar.updatePolitica().subscribe(res2=>{
+                    $('#iconoEspera').hide();  
+                    this.source3.localData=res2;
+                    this.dataAdapter3= new jqx.dataAdapter(this.source3);
+                    this.myTreeGrid.render();
+                    this.myTreeGrid.expandRow(1);
+                })
+                
             })
-            
-        })
+        }
 
     }
 
