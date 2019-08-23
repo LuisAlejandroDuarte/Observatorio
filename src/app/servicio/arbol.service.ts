@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {Observable} from "rxjs";
 import { Actividad } from "../modelo/actividad.modelo";
 import { Arbol } from "../modelo/arbol.modelo";
+import { environment } from "src/environments/environment";
 
 
 // header('Content-type: application/json');
@@ -17,6 +18,7 @@ const httpOptions = {
   };
 @Injectable()
 export class ArbolService {
+  baseUrl =environment.apiUrl;
  constructor(public http: HttpClient) {}
     
 
@@ -26,7 +28,7 @@ export class ArbolService {
    
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-     return this.http.post<Arbol[]>('http://localhost:8037/Observatorio/src/app/datos/arbol.php?url=generar',null,httpOptions);
+     return this.http.post<Arbol[]>(this.baseUrl + 'arbol.php?url=generar',null,httpOptions);
    }
 
    select(): Observable<Actividad[]> {
@@ -35,7 +37,7 @@ export class ArbolService {
      
     
       //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-       return this.http.post<Actividad[]>('http://localhost:8037/Observatorio/src/app/datos/actividad.php?url=select',null,httpOptions);
+       return this.http.post<Actividad[]>(this.baseUrl + 'actividad.php?url=select',null,httpOptions);
      }
 
   selectbyId(actividad: Actividad): Observable<Actividad> {
@@ -44,13 +46,13 @@ export class ArbolService {
     
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-      return this.http.post<Actividad>('http://localhost:8037/Observatorio/src/app/datos/actividad.php?url=selectbyId',JSON.stringify(actividad),httpOptions);
+      return this.http.post<Actividad>(this.baseUrl + 'actividad.php?url=selectbyId',JSON.stringify(actividad),httpOptions);
     }
 
   update(actividad: Actividad): Observable<Actividad> {
                 
       
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-    return this.http.post<Actividad>('http://localhost:8037/Observatorio/src/app/datos/actividad.php?url=update',JSON.stringify(actividad),httpOptions);
+    return this.http.post<Actividad>(this.baseUrl + 'actividad.php?url=update',JSON.stringify(actividad),httpOptions);
   }
 }

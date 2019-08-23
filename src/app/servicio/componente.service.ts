@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {Observable} from "rxjs";
 import { Componente } from "../modelo/componente";
+import { environment } from "src/environments/environment";
 
 
 // header('Content-type: application/json');
@@ -16,6 +17,7 @@ const httpOptions = {
   };
 @Injectable()
 export class ComponenteService {
+  baseUrl =environment.apiUrl;
  constructor(public http: HttpClient) {}
     
 
@@ -25,7 +27,7 @@ export class ComponenteService {
    
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-     return this.http.post<Componente>('http://localhost:8037/Observatorio/src/app/datos/componente.php?url=ingresar',JSON.stringify(componente),httpOptions);
+     return this.http.post<Componente>(this.baseUrl + 'componente.php?url=ingresar',JSON.stringify(componente),httpOptions);
    }
 
    select(): Observable<Componente[]> {
@@ -34,7 +36,7 @@ export class ComponenteService {
      
     
       //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-       return this.http.post<Componente[]>('http://localhost:8037/Observatorio/src/app/datos/componente.php?url=select',null,httpOptions);
+       return this.http.post<Componente[]>(this.baseUrl + 'componente.php?url=select',null,httpOptions);
      }
 
   selectbyId(componente: Componente): Observable<Componente> {
@@ -43,13 +45,13 @@ export class ComponenteService {
     
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-      return this.http.post<Componente>('http://localhost:8037/Observatorio/src/app/datos/componente.php?url=selectbyId',JSON.stringify(componente),httpOptions);
+      return this.http.post<Componente>(this.baseUrl + 'componente.php?url=selectbyId',JSON.stringify(componente),httpOptions);
     }
 
   update(componente: Componente): Observable<Componente> {
                 
       
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-    return this.http.post<Componente>('http://localhost:8037/Observatorio/src/app/datos/componente.php?url=update',JSON.stringify(componente),httpOptions);
+    return this.http.post<Componente>(this.baseUrl + 'componente.php?url=update',JSON.stringify(componente),httpOptions);
   }
 }

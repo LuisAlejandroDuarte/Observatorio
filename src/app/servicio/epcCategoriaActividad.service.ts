@@ -6,6 +6,7 @@ import { EntidadPolitica } from "../modelo/entidadPolitica.modelo";
 import { EntidadPoliticaComponente } from "../modelo/entidadPoliticaComponente.modelo";
 import { EPoliticaComponenteCategoria } from "../modelo/ePoliticaComponenteCategoria";
 import { EPCCategoriaActividad } from "../modelo/epcCategoriaActividad.modelo";
+import { environment } from "src/environments/environment";
 
 
 // header('Content-type: application/json');
@@ -20,6 +21,7 @@ const httpOptions = {
   };
 @Injectable()
 export class EPCCategoriaActividadService {
+  baseUrl =environment.apiUrl;
  constructor(public http: HttpClient) {}
     
 
@@ -29,7 +31,7 @@ export class EPCCategoriaActividadService {
    
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-     return this.http.post<EPCCategoriaActividad>('http://localhost:8037/Observatorio/src/app/datos/valoracion.php?url=ingresar',JSON.stringify(categoriaActividad),httpOptions);
+     return this.http.post<EPCCategoriaActividad>(this.baseUrl + 'valoracion.php?url=ingresar',JSON.stringify(categoriaActividad),httpOptions);
    }
 
    select(): Observable<EPCCategoriaActividad[]> {
@@ -38,7 +40,7 @@ export class EPCCategoriaActividadService {
      
     
       //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-       return this.http.post<EPCCategoriaActividad[]>('http://localhost:8037/Observatorio/src/app/datos/valoracion.php?url=select',null,httpOptions);
+       return this.http.post<EPCCategoriaActividad[]>(this.baseUrl + 'valoracion.php?url=select',null,httpOptions);
      }
 
   selectbyId(categoriaActividad: EPCCategoriaActividad): Observable<EPCCategoriaActividad[]> {
@@ -47,13 +49,13 @@ export class EPCCategoriaActividadService {
     
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-      return this.http.post<EPCCategoriaActividad[]>('http://localhost:8037/Observatorio/src/app/datos/valoracion.php?url=selectbyId',JSON.stringify(categoriaActividad),httpOptions);
+      return this.http.post<EPCCategoriaActividad[]>(this.baseUrl + 'valoracion.php?url=selectbyId',JSON.stringify(categoriaActividad),httpOptions);
     }
 
 //   update(actividad: Actividad): Observable<Actividad> {
                 
       
 //     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-//     return this.http.post<Actividad>('http://localhost:8037/Observatorio/src/app/datos/actividad.php?url=update',JSON.stringify(actividad),httpOptions);
+//     return this.http.post<Actividad>(this.baseUrl + 'actividad.php?url=update',JSON.stringify(actividad),httpOptions);
 //   }
 }

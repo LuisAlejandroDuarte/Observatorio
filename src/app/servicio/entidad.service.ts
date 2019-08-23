@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {Observable} from "rxjs";
 import { Entidad } from "../modelo/Entidad.modelo";
+import { environment } from "src/environments/environment";
 
 // header('Content-type: application/json');
 // header("Access-Control-Allow-Origin: *");
@@ -15,6 +16,7 @@ const httpOptions = {
   };
 @Injectable()
 export class EntidadService {
+  baseUrl =environment.apiUrl;
  constructor(public http: HttpClient) {}
     
 
@@ -24,7 +26,7 @@ export class EntidadService {
    
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-     return this.http.post<Entidad>('http://localhost:8037/Observatorio/src/app/datos/entidad.php?url=ingresar',JSON.stringify(entidad),httpOptions);
+     return this.http.post<Entidad>(this.baseUrl + 'entidad.php?url=ingresar',JSON.stringify(entidad),httpOptions);
    }
 
    select(): Observable<Entidad[]> {
@@ -33,7 +35,7 @@ export class EntidadService {
      
     
       //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-       return this.http.post<Entidad[]>('http://localhost:8037/Observatorio/src/app/datos/entidad.php?url=select',null,httpOptions);
+       return this.http.post<Entidad[]>(this.baseUrl + 'entidad.php?url=select',null,httpOptions);
      }
 
   selectbyId(entidad: Entidad): Observable<Entidad> {
@@ -42,13 +44,13 @@ export class EntidadService {
     
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-      return this.http.post<Entidad>('http://localhost:8037/Observatorio/src/app/datos/entidad.php?url=selectbyId',JSON.stringify(entidad),httpOptions);
+      return this.http.post<Entidad>(this.baseUrl + 'entidad.php?url=selectbyId',JSON.stringify(entidad),httpOptions);
     }
 
   update(entidad: Entidad): Observable<Entidad> {
                 
       
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-    return this.http.post<Entidad>('http://localhost:8037/Observatorio/src/app/datos/entidad.php?url=update',JSON.stringify(entidad),httpOptions);
+    return this.http.post<Entidad>(this.baseUrl + 'entidad.php?url=update',JSON.stringify(entidad),httpOptions);
   }
 }

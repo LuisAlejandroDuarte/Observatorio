@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import { Actividad } from "../modelo/actividad.modelo";
 import { EntidadPolitica } from "../modelo/entidadPolitica.modelo";
 import { EntidadPoliticaComponente } from "../modelo/entidadPoliticaComponente.modelo";
+import { environment } from "src/environments/environment";
 
 
 // header('Content-type: application/json');
@@ -18,6 +19,7 @@ const httpOptions = {
   };
 @Injectable()
 export class EntidadPoliticaComponenteService {
+  baseUrl =environment.apiUrl;
  constructor(public http: HttpClient) {}
     
 
@@ -27,7 +29,7 @@ export class EntidadPoliticaComponenteService {
    
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-     return this.http.post<EntidadPoliticaComponente>('http://localhost:8037/Observatorio/src/app/datos/entidadPoliticaComponente.php?url=ingresar',JSON.stringify(entidadPolitica),httpOptions);
+     return this.http.post<EntidadPoliticaComponente>(this.baseUrl + 'entidadPoliticaComponente.php?url=ingresar',JSON.stringify(entidadPolitica),httpOptions);
    }
 
    select(): Observable<EntidadPoliticaComponente[]> {
@@ -36,7 +38,7 @@ export class EntidadPoliticaComponenteService {
      
     
       //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-       return this.http.post<EntidadPoliticaComponente[]>('http://localhost:8037/Observatorio/src/app/datos/entidadPoliticaComponente.php?url=select',null,httpOptions);
+       return this.http.post<EntidadPoliticaComponente[]>(this.baseUrl + 'entidadPoliticaComponente.php?url=select',null,httpOptions);
      }
 
   selectbyId(entidadPoliticaComponente: EntidadPoliticaComponente): Observable<EntidadPoliticaComponente[]> {
@@ -45,13 +47,13 @@ export class EntidadPoliticaComponenteService {
     
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-      return this.http.post<EntidadPoliticaComponente[]>('http://localhost:8037/Observatorio/src/app/datos/entidadPoliticaComponente.php?url=selectbyId',JSON.stringify(entidadPoliticaComponente),httpOptions);
+      return this.http.post<EntidadPoliticaComponente[]>(this.baseUrl + 'entidadPoliticaComponente.php?url=selectbyId',JSON.stringify(entidadPoliticaComponente),httpOptions);
     }
 
 //   update(actividad: Actividad): Observable<Actividad> {
                 
       
 //     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-//     return this.http.post<Actividad>('http://localhost:8037/Observatorio/src/app/datos/actividad.php?url=update',JSON.stringify(actividad),httpOptions);
+//     return this.http.post<Actividad>(this.baseUrl + 'actividad.php?url=update',JSON.stringify(actividad),httpOptions);
 //   }
 }

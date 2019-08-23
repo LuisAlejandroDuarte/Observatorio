@@ -25,7 +25,7 @@ import { LayoutLoginComponent } from './layout/layoutlogin.component';
     HttpClientModule,  
     BrowserModule,   
     BrowserAnimationsModule,
-    RouterModule.forRoot(AppRoutes),     
+    RouterModule.forRoot(AppRoutes, { useHash: true }),     
     MainModule   
   ],
 

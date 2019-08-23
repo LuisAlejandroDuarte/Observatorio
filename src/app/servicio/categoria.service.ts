@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {Observable} from "rxjs";
 import { Categoria } from "../modelo/categoria.modelo";
+import { environment } from "src/environments/environment";
 
 
 // header('Content-type: application/json');
@@ -16,6 +17,7 @@ const httpOptions = {
   };
 @Injectable()
 export class CategoriaService {
+  baseUrl =environment.apiUrl;
  constructor(public http: HttpClient) {}
     
 
@@ -25,7 +27,7 @@ export class CategoriaService {
    
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-     return this.http.post<Categoria>('http://localhost:8037/Observatorio/src/app/datos/categoria.php?url=ingresar',JSON.stringify(categoria),httpOptions);
+     return this.http.post<Categoria>(this.baseUrl + 'categoria.php?url=ingresar',JSON.stringify(categoria),httpOptions);
    }
 
    select(): Observable<Categoria[]> {
@@ -34,7 +36,7 @@ export class CategoriaService {
      
     
       //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-       return this.http.post<Categoria[]>('http://localhost:8037/Observatorio/src/app/datos/categoria.php?url=select',null,httpOptions);
+       return this.http.post<Categoria[]>(this.baseUrl + 'categoria.php?url=select',null,httpOptions);
      }
 
   selectbyId(categoria: Categoria): Observable<Categoria> {
@@ -43,13 +45,13 @@ export class CategoriaService {
     
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-      return this.http.post<Categoria>('http://localhost:8037/Observatorio/src/app/datos/categoria.php?url=selectbyId',JSON.stringify(categoria),httpOptions);
+      return this.http.post<Categoria>(this.baseUrl + 'categoria.php?url=selectbyId',JSON.stringify(categoria),httpOptions);
     }
 
   update(categoria: Categoria): Observable<Categoria> {
                 
       
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-    return this.http.post<Categoria>('http://localhost:8037/Observatorio/src/app/datos/categoria.php?url=update',JSON.stringify(categoria),httpOptions);
+    return this.http.post<Categoria>(this.baseUrl + 'categoria.php?url=update',JSON.stringify(categoria),httpOptions);
   }
 }

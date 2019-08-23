@@ -1,10 +1,10 @@
 import { Routes } from "@angular/router";
-import { PoliticaComponent } from "./politica/politica.component";
 import {ComponenteComponent} from "./componente/componente.component";
 import { CategoriaComponent } from "./categoria/categoria.component";
 import { ActividadComponent } from "./actividad/actividad.component";
 import { EntidadComponent } from "./entidad/entidad.component";
 import { AuthGuard } from "../guards/auth.guard";
+import { PoliticaComponent } from "./politica/politica.component";
 export const AdministrarRoutes: Routes = [       
     {
         path: '',
@@ -19,6 +19,7 @@ export const AdministrarRoutes: Routes = [
             path: 'componente',
             component: ComponenteComponent,
             canActivate:[AuthGuard]            
+            
         }]
         
     },{

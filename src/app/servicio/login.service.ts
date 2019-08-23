@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from "rxjs";
 import { LoginObject, Session } from "./sesion.service";
+import { environment } from "src/environments/environment";
 
 
 const httpOptions = {
@@ -9,6 +10,7 @@ const httpOptions = {
   };
 @Injectable()
 export class LoginService {
+  baseUrl =environment.apiUrl;
  constructor(private http: HttpClient) {}
 
 

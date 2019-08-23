@@ -7,6 +7,7 @@ import { EntidadPoliticaComponente } from "../modelo/entidadPoliticaComponente.m
 import { EPoliticaComponenteCategoria } from "../modelo/ePoliticaComponenteCategoria";
 import { EPCCategoriaActividad } from "../modelo/epcCategoriaActividad.modelo";
 import { CategoriaActividad } from "../modelo/categoriaActividad.modelo";
+import { environment } from "src/environments/environment";
 
 
 // header('Content-type: application/json');
@@ -21,6 +22,7 @@ const httpOptions = {
   };
 @Injectable()
 export class CategoriaActividadService {
+  baseUrl =environment.apiUrl;
  constructor(public http: HttpClient) {}
     
 
@@ -30,7 +32,7 @@ export class CategoriaActividadService {
    
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-     return this.http.post<CategoriaActividad>('http://localhost:8037/Observatorio/src/app/datos/epcCategoriaActividad.php?url=ingresar',JSON.stringify(categoriaActividad),httpOptions);
+     return this.http.post<CategoriaActividad>(this.baseUrl + 'epcCategoriaActividad.php?url=ingresar',JSON.stringify(categoriaActividad),httpOptions);
    }
 
    select(): Observable<CategoriaActividad[]> {
@@ -39,7 +41,7 @@ export class CategoriaActividadService {
      
     
       //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-       return this.http.post<CategoriaActividad[]>('http://localhost:8037/Observatorio/src/app/datos/epcCategoriaActividad.php?url=select',null,httpOptions);
+       return this.http.post<CategoriaActividad[]>(this.baseUrl + 'epcCategoriaActividad.php?url=select',null,httpOptions);
      }
 
   selectbyId(categoriaActividad: CategoriaActividad): Observable<CategoriaActividad[]> {
@@ -48,13 +50,13 @@ export class CategoriaActividadService {
     
   
     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-      return this.http.post<CategoriaActividad[]>('http://localhost:8037/Observatorio/src/app/datos/epcCategoriaActividad.php?url=selectbyId',JSON.stringify(categoriaActividad),httpOptions);
+      return this.http.post<CategoriaActividad[]>(this.baseUrl + 'epcCategoriaActividad.php?url=selectbyId',JSON.stringify(categoriaActividad),httpOptions);
     }
 
 //   update(actividad: Actividad): Observable<Actividad> {
                 
       
 //     //httpImage.headers.append('Authorization','Bearer ' + token.ObtenerToken());
-//     return this.http.post<Actividad>('http://localhost:8037/Observatorio/src/app/datos/actividad.php?url=update',JSON.stringify(actividad),httpOptions);
+//     return this.http.post<Actividad>(this.baseUrl + 'actividad.php?url=update',JSON.stringify(actividad),httpOptions);
 //   }
 }

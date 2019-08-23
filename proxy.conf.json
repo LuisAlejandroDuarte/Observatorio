@@ -1,0 +1,6 @@
+{
+    "/Observatorio/src/app/datos/": {
+      "target": "http://localhost:8037",
+      "secure": false
+    }
+}

@@ -7,8 +7,5 @@ declare const $: any;
   })
   export class PoliticaComponent {
 
-    constructor() {
-      
-    }
-       
+  
   }
